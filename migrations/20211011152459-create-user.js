@@ -5,7 +5,9 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.literal(
+          'uuid_in((md5((random())::text))::cstring)'
+        ),
         allowNull: false
       },
       username: {

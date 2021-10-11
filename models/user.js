@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.literal('uuid_generate_v4()'),
         allowNull: false
       },
       username: {
