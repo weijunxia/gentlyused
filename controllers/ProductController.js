@@ -75,6 +75,7 @@ module.exports = {
   GetAllProducts,
   QueryProducts,
   GetProductDetails,
+  CreateProduct,
   UpdateProduct,
   DeleteProduct
 }
