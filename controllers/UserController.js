@@ -42,9 +42,19 @@ const GetUserProfileFavorites = async (req, res) => {
   }
 }
 
+const DeleteUser = async (req, res) => {
+  try {
+    const user = User.findByPk(req.params.id)
+    console.log(user)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   GetAllUserProfiles,
   GetUserProfileProducts,
   GetUserProfileOrders,
-  GetUserProfileFavorites
+  GetUserProfileFavorites,
+  DeleteUser
 }
