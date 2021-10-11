@@ -6,7 +6,7 @@
 _______
 
 ## 👖 🛒 About 
-Gently Used is a second hand clothing marketplace, built with a React.js front-end, Node.js, Express.js and PostgreSQL back-end. Amazon S3 used for image hosting, PayPal and Stripe used for checkout. 
+Gently Used is a second hand clothing marketplace, built with a Vue.js front-end, Node.js, Express.js and PostgreSQL back-end. Amazon S3 used for image hosting, PayPal and Stripe used for checkout. 
 
 My [Trello](https://trello.com/invite/b/2InlilO8/7a9c24c4377a3124cd959062db9761ed/gentlyused) Board to keep track of my progress
 
