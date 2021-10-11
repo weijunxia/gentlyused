@@ -34,6 +34,17 @@ const GetProductDetails = async (req, res) => {
     throw error
   }
 }
+const CreateProduct = async (req, res) => {
+  try {
+    const product = await Product.create(
+      { ...req.body },
+      { where: { id: req.params.user_id } }
+    )
+    res.send(product)
+  } catch (error) {
+    throw error
+  }
+}
 
 const UpdateProduct = async (req, res) => {
   try {
