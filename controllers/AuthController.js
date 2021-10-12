@@ -1,12 +1,15 @@
 const { User } = require('../models')
 const middleware = require('../middleware')
+
 const Login = async (req, res) => {
   try {
     const user = await User.findOne({
       where: { email: req.body.email },
       raw: true
     })
-
+    if (user.deleted === true) {
+      user.deleted = false
+    }
     if (
       user &&
       (await middleware.comparePassword(
@@ -29,7 +32,7 @@ const Login = async (req, res) => {
 
 const Register = async (req, res) => {
   try {
-    const { email, password, name, is_renter, is_owner, picture } = req.body
+    const { username, email, password, picture } = req.body
     console.log(password)
     let password_digest = await middleware.hashPassword(password)
     const user = await User.create({

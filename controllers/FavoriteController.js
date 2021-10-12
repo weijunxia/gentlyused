@@ -12,33 +12,12 @@ const AddToFavorites = async (req, res) => {
 
 const RemoveFromFavorites = async (req, res) => {
   try {
-    await Favorite.destroy({where: {product_id: req.params.product_id}})
+    await Favorite.destroy({ where: { product_id: req.params.product_id } })
     res.send({
-      msg: "Removed From Favorites",
+      msg: 'Removed From Favorites',
       payload: req.params.product_id,
       status: 'Ok'
     })
-  } catch (error) {
-    throw error
-  }
-}
-
-const GetAllFavoritesOneProduct = async (req, res) => {
-  try {
-    const id = req.params.product_id
-    const favorites = Favorite.findAll({
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: {
-            exclude: ['password_digest']
-          }
-        },
-      ],
-      where: {id = favorites.favorite_favoirte_id}
-    })
-    res.send(favorites)
   } catch (error) {
     throw error
   }

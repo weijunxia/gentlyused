@@ -9,6 +9,15 @@ const UploadImage = async (req, res) => {
   }
 }
 
+const DeleteImage = async (req, res) => {
+  try {
+    await Image.destroy({ where: { id: req.params.id } })
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
-  UploadImage
+  UploadImage,
+  DeleteImage
 }

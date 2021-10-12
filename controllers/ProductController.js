@@ -1,9 +1,10 @@
-const { Product, User, Order } = require('../models')
+const { Product, User, Order, Favorite } = require('../models')
 const { Op } = require('sequelize')
 
 const GetAllProducts = async (req, res) => {
   try {
-    const products = Product.findAll()
+    const products = await Product.findAll()
+    console.log(products)
     res.send(products)
   } catch (error) {
     throw error
@@ -21,6 +22,27 @@ const QueryProducts = async (req, res) => {
         ]
       }
     })
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetAllFavoritesOneProduct = async (req, res) => {
+  try {
+    const id = req.params.product_id
+    const favorites = await User.findAll({
+      include: [
+        {
+          model: Product,
+          as: 'product',
+          where: { id: id }
+        }
+      ],
+      attributes: {
+        exclude: ['password_digest']
+      }
+    })
+    res.send(favorites)
   } catch (error) {
     throw error
   }
@@ -77,5 +99,6 @@ module.exports = {
   GetProductDetails,
   CreateProduct,
   UpdateProduct,
-  DeleteProduct
+  DeleteProduct,
+  GetAllFavoritesOneProduct
 }

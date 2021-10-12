@@ -6,6 +6,7 @@ const users = [...Array(5)].map((user) => ({
   username: faker.internet.userName(),
   email: faker.internet.email(),
   password_digest: faker.internet.password(4),
+  deleted: false,
   createdAt: new Date(),
   updatedAt: new Date()
 }))

@@ -2,7 +2,9 @@ const { User, Product, Order } = require('../models')
 
 const GetAllUserProfiles = async (req, res) => {
   try {
-    const users = await User.findAll()
+    const users = await User.findAll({
+      where: { deleted: false }
+    })
     res.send(users)
   } catch (error) {
     throw error
@@ -43,7 +45,7 @@ const GetUserProfileOrders = async (req, res) => {
 const GetUserProfileFavorites = async (req, res) => {
   try {
     const userFavorites = await User.findByPk(req.params.id, {
-      include: [{ model: Favorites }]
+      include: [{ model: Favorite }]
     })
     res.send(userFavorites)
   } catch (error) {
@@ -53,8 +55,15 @@ const GetUserProfileFavorites = async (req, res) => {
 
 const DeleteUser = async (req, res) => {
   try {
-    const user = User.findByPk(req.params.id)
-    console.log(user)
+    const user = await User.findByPk(req.params.id)
+    user.deleted = true
+    res.send({
+      msg: 'Your Account has been Deleted',
+      payload: req.params.user_id,
+      status: 'Ok',
+      user
+    })
+    user.save()
   } catch (error) {
     throw error
   }

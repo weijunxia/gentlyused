@@ -1,5 +1,6 @@
 'use strict'
 const { Model } = require('sequelize')
+const { v4: uuidv4 } = require('uuid')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -10,9 +11,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Product, {
-        foreignKey: 'product_user_id'
+        foreignKey: 'product_user_id',
+        as: 'users_products'
       })
-      User.hasMany(models.Favorite, {
+      User.belongsToMany(models.Product, {
+        through: models.Favorite,
+        as: 'favorite_user_id',
         foreignKey: 'favorite_user_id'
       })
       User.hasMany(models.Order, {
@@ -28,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: DataTypes.literal('uuid_generate_v4()'),
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false
       },
       username: {

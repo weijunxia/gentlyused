@@ -4,6 +4,7 @@ const Router = require('express').Router()
 
 Router.get('/', controller.GetAllProducts)
 Router.get('/:id', controller.GetProductDetails)
+Router.get('/:id/favorite', controller.GetAllFavoritesOneProduct)
 Router.get('/search/:query', controller.QueryProducts)
 Router.post(
   '/',
