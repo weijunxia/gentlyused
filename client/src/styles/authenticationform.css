@@ -1,0 +1,41 @@
+:root {
+  --registration-modal-height: 40vh;
+  --registration-modal-width: 40vw;
+}
+
+.registration_modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 30vh;
+  bottom: 30vh;
+  left: 30vw;
+  right: 30vw;
+  height: 40vh;
+  width: 40vw;
+  border: 1px solid lightgray;
+}
+
+.registration_modal_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_exit {
+  position: absolute;
+  bottom: calc(0.88 * var(--registration-modal-height));
+  left: calc(0.93 * var(--registration-modal-width));
+  float: right;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: 0.2;
+  cursor: pointer;
+}

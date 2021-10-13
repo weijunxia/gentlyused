@@ -3,8 +3,8 @@ import Axios from 'axios'
 const Client = Axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? `${window.location.origin}/api`
-      : 'http://localhost:3001/api'
+      ? `${window.location.origin}`
+      : 'http://localhost:3001'
 })
 
 Client.interceptors.request.use(

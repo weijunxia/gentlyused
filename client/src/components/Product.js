@@ -7,7 +7,7 @@ import {
   LoadProductSearch,
   UpdateUserProduct,
   DeleteUserProduct
-} from '../store/actions/'
+} from '../store/actions/ProductActions'
 import '../styles/product.css'
 
 const mapStateToProps = ({ productState }) => {
