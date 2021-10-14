@@ -34,3 +34,4 @@ Gently Used is a second hand clothing marketplace, built with a Vue.js front-end
 ## 📖 Credits
 - [Loading.io](https://loading.io/) for loading pages
 - [Sam Meech-Ward](https://www.youtube.com/watch?v=yGYeYJpRWPM) for the tutorial on Amazon S3 configuration.
+- [Marcus Michaels](https://medium.com/@marcusmichaels/how-to-build-a-carousel-from-scratch-in-vanilla-js-9a096d3b98c9) DIY carousel

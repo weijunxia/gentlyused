@@ -28,7 +28,14 @@ export const GetProductSearch = async (query) => {
 }
 
 export const GetProductFavorites = async () => {}
-
+export const CreateProduct = async (data) => {
+  try {
+    const res = await Client.post(`/products`, data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
 export const UpdateProduct = async (id, data) => {
   try {
     const res = await Client.put(`/products/${id}`, data)

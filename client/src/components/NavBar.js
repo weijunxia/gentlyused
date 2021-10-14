@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { Favorite, AccountCircle } from '@mui/icons-material'
 import AuthenticationForm from './AuthenticationForm'
 import '../styles/navbar.css'
 
@@ -14,7 +15,7 @@ const mapDispatchToProps = (dispatch) => {
 
 function NavBar(props) {
   let authenticatedOptions
-  if (props.user) {
+  if (props.authenticationState.isLoggedIn) {
     authenticatedOptions = (
       <div className="nav_bar_right">
         <div className="nav_bar_shop">
@@ -23,14 +24,18 @@ function NavBar(props) {
         <div className="nav_bar_sell">
           <NavLink to="/sell">Sell</NavLink>
         </div>
-        <div className="nav_bar_favorites">❤️</div>
-        <div className="nav_bar_profile"></div>
+        <div className="nav_bar_favorites">
+          <Favorite />
+        </div>
+        <div className="nav_bar_profile">
+          <AccountCircle />
+        </div>
       </div>
     )
   }
 
   let unauthenticatedOptions
-  if (!props.user) {
+  if (!props.authenticationState.isLoggedIn) {
     unauthenticatedOptions = (
       <div className="nav_bar_right">
         <div className="nav_bar_shop">
@@ -58,7 +63,9 @@ function NavBar(props) {
           </form>
         </div>
       </div>
-      {props.user ? authenticatedOptions : unauthenticatedOptions}
+      {props.authenticationState.isLoggedIn
+        ? authenticatedOptions
+        : unauthenticatedOptions}
     </div>
   )
 }

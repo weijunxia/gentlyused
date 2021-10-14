@@ -1,4 +1,8 @@
-import { SignInUser, RegisterUser } from '../../services/AuthServices'
+import {
+  SignInUser,
+  RegisterUser,
+  CheckSession
+} from '../../services/AuthServices'
 
 import {
   USER_LOGIN,
@@ -10,15 +14,26 @@ import {
   SET_MESSAGE,
   AUTH_MODAL_TOGGLE,
   TOGGLE_REGISTER,
-  TOGGLE_LOGIN
+  TOGGLE_LOGIN,
+  CHECK_SESSION
 } from '../types'
+
+export const checkSession = (data) => {
+  return async (dispatch) => {
+    try {
+      const response = await CheckSession(data)
+      dispatch({ type: CHECK_SESSION, payload: response })
+      return response.id
+    } catch (error) {
+      throw error
+    }
+  }
+}
 
 export const PostRegisterUser = (data) => {
   return async (dispatch) => {
     try {
-      console.log(data)
       const response = await RegisterUser(data)
-
       dispatch({ type: USER_REGISTER, payload: response.data })
       dispatch({ type: REGISTER_SUCCESS, payload: response.data })
     } catch (error) {
@@ -37,9 +52,11 @@ export const PostRegisterUser = (data) => {
 export const PostLoginUser = (data) => {
   return async (dispatch) => {
     try {
+      console.log('data', data)
       const response = await SignInUser(data)
-      dispatch({ type: USER_LOGIN, payload: response.data })
-      dispatch({ type: LOGIN_SUCCESS, payload: response.data })
+      console.log('response', response)
+      dispatch({ type: USER_LOGIN, payload: response })
+      dispatch({ type: LOGIN_SUCCESS, payload: response })
     } catch (error) {
       const message =
         (error.response &&

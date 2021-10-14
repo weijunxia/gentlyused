@@ -2,6 +2,7 @@ import {
   GetAllProducts,
   GetProductById,
   GetProductSearch,
+  CreateProduct,
   UpdateProduct,
   GetProductFavorites,
   DeleteProduct
@@ -13,8 +14,20 @@ const {
   GET_PRODUCT_FAVORITES,
   GET_PRODUCT_SEARCH,
   UPDATE_PRODUCT,
-  DELETE_PRODUCT
+  DELETE_PRODUCT,
+  CREATE_PRODUCT,
+  TOGGLE_PRODUCT_DELETE_MODAL
 } = require('../types')
+
+export const ToggleProductDeleteModal = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: TOGGLE_PRODUCT_DELETE_MODAL })
+    } catch (error) {
+      throw error
+    }
+  }
+}
 
 export const LoadAllProducts = () => {
   return async (dispatch) => {
@@ -65,6 +78,17 @@ export const DeleteUserProduct = (id) => {
     try {
       const deletedProduct = await DeleteProduct(id)
       dispatch({ type: DELETE_PRODUCT, payload: deletedProduct })
+    } catch (error) {
+      throw error
+    }
+  }
+}
+
+export const PostProduct = (data) => {
+  return async (dispatch) => {
+    try {
+      const product = await CreateProduct(data)
+      dispatch({ type: CREATE_PRODUCT, payload: product.data })
     } catch (error) {
       throw error
     }

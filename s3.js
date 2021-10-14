@@ -17,9 +17,9 @@ const s3 = new aws.S3({
 })
 
 const GenerateUploadURL = async () => {
+  // use id of product file
   const rawBytes = await randomBytes(16)
   const imageName = rawBytes.toString('hex')
-
   const params = {
     Bucket: bucketName,
     Key: imageName,
@@ -32,3 +32,4 @@ const GenerateUploadURL = async () => {
 }
 
 module.exports = { GenerateUploadURL }
+// contenttype contentlength Body ACL

@@ -8,8 +8,8 @@ Router.get('/:id/favorite', controller.GetAllFavoritesOneProduct)
 Router.get('/search/:query', controller.QueryProducts)
 Router.post(
   '/',
-  middleware.stripToken,
-  middleware.verifyToken,
+  // middleware.stripToken,
+  // middleware.verifyToken,
   controller.CreateProduct
 )
 Router.put(

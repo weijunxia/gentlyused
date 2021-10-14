@@ -7,11 +7,11 @@ import {
   REGISTER_FAIL,
   AUTH_MODAL_TOGGLE,
   TOGGLE_LOGIN,
-  TOGGLE_REGISTER
+  TOGGLE_REGISTER,
+  CHECK_SESSION
 } from '../types'
 
 const iState = {
-  user: JSON.parse(localStorage.getItem('user')),
   isLoggedIn: false,
   modalToggled: false,
   registration: false,
@@ -84,6 +84,11 @@ const AuthReducer = (state = iState, action) => {
           modalToggled: false,
           login: false
         }
+      }
+    case CHECK_SESSION:
+      return {
+        ...state,
+        isLoggedIn: true
       }
     default:
       return state

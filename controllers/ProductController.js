@@ -4,7 +4,6 @@ const { Op } = require('sequelize')
 const GetAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll()
-    console.log(products)
     res.send(products)
   } catch (error) {
     throw error
@@ -58,9 +57,10 @@ const GetProductDetails = async (req, res) => {
 }
 const CreateProduct = async (req, res) => {
   try {
+    console.log(req.body)
     const product = await Product.create(
-      { ...req.body },
-      { where: { id: req.params.user_id } }
+      { ...req.body }
+      // { where: { id: req.params.user_id } }
     )
     res.send(product)
   } catch (error) {

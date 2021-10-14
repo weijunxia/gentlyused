@@ -53,7 +53,7 @@ function AuthenticationForm(props) {
     await props.createLogin(values)
     console.log(values)
   }
-
+  Modal.setAppElement('body')
   const registrationModal = (
     <Form
       onSubmit={handleUserRegistration}
