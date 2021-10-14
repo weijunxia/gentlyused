@@ -1,8 +1,10 @@
 .shop_feed {
+  margin: 0 auto;
+  max-width: 1088px;
   display: flex;
-  flex-direction: column;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-  top: 100px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
 }
