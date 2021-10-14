@@ -1,4 +1,5 @@
 const { User, Product, Order } = require('../models')
+const { Op } = require('sequelize')
 
 const GetAllUserProfiles = async (req, res) => {
   try {
@@ -11,9 +12,32 @@ const GetAllUserProfiles = async (req, res) => {
   }
 }
 
-const GetUserProfile = async (req, res) => {
+const GetUsernameProfile = async (req, res) => {
   try {
-    const userProfile = await User.findByPk(req.params.id)
+    const userProfile = await User.findOne({
+      where: {
+        username: req.params.username
+      },
+      attributes: {
+        exclude: ['password_digest', 'email']
+      }
+    })
+    res.send(userProfile)
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetUserEmailProfile = async (req, res) => {
+  try {
+    const userProfile = await User.findOne({
+      where: {
+        email: req.params.email
+      },
+      attributes: {
+        exclude: ['password_digest', 'email']
+      }
+    })
     res.send(userProfile)
   } catch (error) {
     throw error
@@ -71,7 +95,8 @@ const DeleteUser = async (req, res) => {
 
 module.exports = {
   GetAllUserProfiles,
-  GetUserProfile,
+  GetUsernameProfile,
+  GetUserEmailProfile,
   GetUserProfileProducts,
   GetUserProfileOrders,
   GetUserProfileFavorites,

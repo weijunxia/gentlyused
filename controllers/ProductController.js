@@ -3,7 +3,9 @@ const { Op } = require('sequelize')
 
 const GetAllProducts = async (req, res) => {
   try {
-    const products = await Product.findAll()
+    const products = await Product.findAll({
+      include: { model: User }
+    })
     res.send(products)
   } catch (error) {
     throw error
@@ -33,7 +35,7 @@ const GetAllFavoritesOneProduct = async (req, res) => {
       include: [
         {
           model: Product,
-          as: 'user_favorite',
+          as: 'product_favorite',
           where: { id: id }
         }
       ],

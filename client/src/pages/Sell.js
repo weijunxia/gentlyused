@@ -4,7 +4,7 @@ import {
   SetAWSS3ImageUrl,
   S3Response
 } from '../store/actions/ImageActions'
-import { checkSession } from '../store/actions/AuthActions'
+import { CheckUserSession } from '../store/actions/AuthActions'
 import { PostProduct, LoadAllProducts } from '../store/actions/ProductActions'
 import { Form, Field } from 'react-final-form'
 import { connect, useDispatch } from 'react-redux'
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
     setResponse: (data) => dispatch(S3Response(data)),
     postProduct: (data) => dispatch(PostProduct(data)),
     getAllProducts: () => dispatch(LoadAllProducts()),
-    checkSession: (data) => dispatch(checkSession(data))
+    checkUserSession: (data) => dispatch(CheckUserSession(data))
   }
 }
 
@@ -31,13 +31,13 @@ function Sell(props) {
   const token = localStorage.getItem('token')
 
   const checkUserSession = async (token) => {
-    const sessionStatus = await props.checkSession(token)
+    const sessionStatus = await props.checkUserSession(token)
     return sessionStatus
   }
 
   const uploadProduct = async (values) => {
     await sleep(300)
-    const sessionStatus = await props.checkSession(token)
+    const sessionStatus = await props.checkUserSession(token)
     values.product_user_id = sessionStatus
     let priceToInt = parseInt(values.price)
     values.price = priceToInt

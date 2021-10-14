@@ -18,7 +18,7 @@ import {
   CHECK_SESSION
 } from '../types'
 
-export const checkSession = (data) => {
+export const CheckUserSession = (data) => {
   return async (dispatch) => {
     try {
       const response = await CheckSession(data)

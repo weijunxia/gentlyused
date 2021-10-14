@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { checkSession } from '../store/actions/AuthActions'
+import { CheckUserSession } from '../store/actions/AuthActions'
 import {
   UpdateUserProduct,
   DeleteUserProduct,
@@ -17,7 +17,7 @@ const mapStateToProps = ({ authenticationState, productState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkSession: (data) => dispatch(checkSession(data)),
+    CheckUserSession: (data) => dispatch(CheckUserSession(data)),
     deleteUserProduct: (id) => dispatch(DeleteUserProduct(id)),
     toggleProductModal: () => dispatch(ToggleProductDeleteModal()),
     loadAllProducts: () => dispatch(LoadAllProducts())

@@ -8,21 +8,25 @@ import {
   PostLoginUser,
   ToggleAuthenticationModal,
   ToggleLoginModal,
-  ToggleRegisterModal
+  ToggleRegisterModal,
+  CheckUserSession
 } from '../store/actions/AuthActions'
 import '../styles/authenticationform.css'
+import { LoadUserEmailProfile } from '../store/actions/UserActions'
 
-const mapStateToProps = ({ authenticationState }) => {
-  return { authenticationState }
+const mapStateToProps = ({ authenticationState, userState }) => {
+  return { authenticationState, userState }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     createRegistration: (data) => dispatch(PostRegisterUser(data)),
     createLogin: (data) => dispatch(PostLoginUser(data)),
+    checkUserSession: (data) => dispatch(CheckUserSession(data)),
     toggleModal: () => dispatch(ToggleAuthenticationModal()),
     toggleLogin: () => dispatch(ToggleLoginModal()),
-    toggleRegister: () => dispatch(ToggleRegisterModal())
+    toggleRegister: () => dispatch(ToggleRegisterModal()),
+    loadUserProfile: (email) => dispatch(LoadUserEmailProfile(email))
   }
 }
 
@@ -51,6 +55,7 @@ function AuthenticationForm(props) {
   const handleUserLogin = async (values) => {
     await sleep(300)
     await props.createLogin(values)
+    await props.loadUserProfile(values.email)
     console.log(values)
   }
   Modal.setAppElement('body')

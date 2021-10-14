@@ -1,15 +1,17 @@
 import {
   GetAllUsers,
-  GetUserProfile,
   GetUsersStore,
   GetUserFavorites,
   GetUserOrders,
-  DeleteUser
+  DeleteUser,
+  GetUsernameProfile,
+  GetUserEmailProfile
 } from '../../services/UserServices'
 
 import {
   GET_ALL_USER_PROFILES,
-  GET_USER_PROFILE,
+  GET_USERNAME_PROFILE,
+  GET_USER_EMAIL_PROFILE,
   GET_USER_PROFILE_PRODUCTS,
   GET_USER_PROFILE_ORDERS,
   GET_USER_PROFILE_FAVORITES,
@@ -28,11 +30,21 @@ export const LoadAllUsers = () => {
   }
 }
 
-export const LoadUserProfile = (id) => {
+export const LoadUsernameProfile = (username) => {
   return async (dispatch) => {
     try {
-      const user = await GetUserProfile(id)
-      dispatch({ type: GET_USER_PROFILE, payload: user })
+      const user = await GetUsernameProfile(username)
+      dispatch({ type: GET_USERNAME_PROFILE, payload: user })
+    } catch (error) {
+      throw error
+    }
+  }
+}
+export const LoadUserEmailProfile = (email) => {
+  return async (dispatch) => {
+    try {
+      const user = await GetUserEmailProfile(email)
+      dispatch({ type: GET_USERNAME_PROFILE, payload: user })
     } catch (error) {
       throw error
     }

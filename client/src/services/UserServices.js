@@ -9,9 +9,18 @@ export const GetAllUsers = async () => {
   }
 }
 
-export const GetUserProfile = async (id) => {
+export const GetUsernameProfile = async (username) => {
   try {
-    const res = await Client.get(`/users/${id}`)
+    const res = await Client.get(`/users/${username}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const GetUserEmailProfile = async (email) => {
+  try {
+    const res = await Client.get(`/users/email/${email}`)
     return res.data
   } catch (error) {
     throw error

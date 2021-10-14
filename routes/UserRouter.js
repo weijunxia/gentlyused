@@ -3,7 +3,8 @@ const middleware = require('../middleware')
 const Router = require('express').Router()
 
 Router.get('/', controller.GetAllUserProfiles)
-Router.get('/:id', controller.GetUserProfile)
+Router.get('/:username', controller.GetUsernameProfile)
+Router.get('/email/:email', controller.GetUserEmailProfile)
 Router.get('/shop/:id', controller.GetUserProfileProducts)
 Router.get(
   '/favorites/:id',
