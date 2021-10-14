@@ -10,10 +10,16 @@ import {
   ToggleProductDeleteModal
 } from '../store/actions/ProductActions'
 import { LoadUsernameProfile } from '../store/actions/UserActions'
+import { PostOrder } from '../store/actions/OrderActions'
 import '../styles/productpage.css'
 
-const mapStateToProps = ({ authenticationState, productState, userState }) => {
-  return { authenticationState, productState, userState }
+const mapStateToProps = ({
+  authenticationState,
+  productState,
+  userState,
+  orderState
+}) => {
+  return { authenticationState, productState, userState, orderState }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -22,7 +28,8 @@ const mapDispatchToProps = (dispatch) => {
     deleteUserProduct: (id) => dispatch(DeleteUserProduct(id)),
     toggleProductModal: () => dispatch(ToggleProductDeleteModal()),
     loadAllProducts: () => dispatch(LoadAllProducts()),
-    loadUserProfile: (username) => dispatch(LoadUsernameProfile(username))
+    loadUserProfile: (username) => dispatch(LoadUsernameProfile(username)),
+    createOrder: (data) => dispatch(PostOrder(data))
   }
 }
 
@@ -47,6 +54,7 @@ function ProductPage(props) {
       <button onClick={deleteUserProduct}>Delete Listing</button>
     </div>
   )
+  let buyProduct = <div></div>
   const checkUserSession = async (token) => {
     const sessionStatus = await props.checkUserSession(token)
   }

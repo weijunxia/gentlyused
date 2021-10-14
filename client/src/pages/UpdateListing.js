@@ -32,4 +32,4 @@ function UpdateListing() {
   )
 }
 
-export default connect(UpdateListing)
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateListing)
