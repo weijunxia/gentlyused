@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 import Modal from 'react-modal'
-import { PostRegisterUser, PostLoginUser } from '../store/actions/AuthActions'
+import { Form, Field } from 'react-final-form'
+import { FORM_ERROR } from 'final-form'
+import {
+  PostRegisterUser,
+  PostLoginUser,
+  ToggleAuthenticationModal,
+  ToggleLoginModal,
+  ToggleRegisterModal
+} from '../store/actions/AuthActions'
 import '../styles/authenticationform.css'
 
 const mapStateToProps = ({ authenticationState }) => {
@@ -11,77 +18,190 @@ const mapStateToProps = ({ authenticationState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createRegistration: () => dispatch(PostRegisterUser()),
-    createLogin: () => dispatch(PostLoginUser())
+    createRegistration: (data) => dispatch(PostRegisterUser(data)),
+    createLogin: (data) => dispatch(PostLoginUser(data)),
+    toggleModal: () => dispatch(ToggleAuthenticationModal()),
+    toggleLogin: () => dispatch(ToggleLoginModal()),
+    toggleRegister: () => dispatch(ToggleRegisterModal())
   }
 }
 
 function AuthenticationForm(props) {
-  const [registrationForm, setRegistrationForm] = useState({
-    username: '',
-    email: '',
-    password: ''
-  })
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+  let registrationFormData = {}
+  let loginFormData = {}
 
-  function handleModalToggle(e) {
-    console.log(props.authenticationState.modalToggled)
-    e.preventDefault()
-    props.authenticationState.modalToggled =
-      !props.authenticationState.modalToggled
+  function handleModalToggle() {
+    props.toggleModal()
   }
-  function handleFormChange(e) {
-    setRegistrationForm({
-      ...registrationForm,
-      [e.target.name]: e.target.value
-    })
+
+  function handleRegisterToggle() {
+    props.toggleRegister()
   }
-  function handleUserRegistration(e) {
-    e.preventDefault()
-    props.createRegistration(registrationForm)
+
+  function handleLoginToggle() {
+    props.toggleLogin()
   }
+
+  const handleUserRegistration = async (values) => {
+    await sleep(300)
+    await props.createRegistration(values)
+  }
+
+  const handleUserLogin = async (values) => {
+    await sleep(300)
+    await props.createLogin(values)
+    console.log(values)
+  }
+
+  const registrationModal = (
+    <Form
+      onSubmit={handleUserRegistration}
+      handleUserRegistration={handleUserRegistration}
+      initialValues={registrationFormData}
+      validate={(values) => {
+        const errors = {}
+        if (!values.username) {
+          errors.username = 'Username Required'
+        }
+        if (!values.email) {
+          errors.email = 'Email Required'
+        }
+        if (!values.password) {
+          errors.password = 'Password Required'
+        }
+        return errors
+      }}
+      render={({ submitError, handleUserRegistration, submitting, values }) => (
+        <Modal isOpen={true} className="auth_modal">
+          <h3>Sign Up!</h3>
+          <form
+            className="auth_modal_form"
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleUserRegistration(values)
+            }}
+          >
+            <Field name="username">
+              {({ input, meta }) => (
+                <div className="auth_modal_field">
+                  <label className="auth_modal_label">Username</label>
+                  <input {...input} type="text" placeholder="Username" />
+                  {(meta.error || meta.submitError) && meta.touched && (
+                    <span>{meta.error || meta.submitError}</span>
+                  )}
+                </div>
+              )}
+            </Field>
+            <Field name="email">
+              {({ input, meta }) => (
+                <div className="auth_modal_field">
+                  <label className="auth_modal_label">Email</label>
+                  <input {...input} type="text" placeholder="email" />
+                  {(meta.error || meta.submitError) && meta.touched && (
+                    <span>{meta.error || meta.submitError}</span>
+                  )}
+                </div>
+              )}
+            </Field>
+            <Field name="password">
+              {({ input, meta }) => (
+                <div className="auth_modal_field">
+                  <label className="auth_modal_label">Password</label>
+                  <input {...input} type="password" placeholder="Password" />
+                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
+            {submitError && <div className="error">{submitError}</div>}
+            <div className="registration_buttons">
+              <button className="auth_modal_buttons" disabled={submitting}>
+                Register
+              </button>
+              <button className="modal_exit" onClick={handleRegisterToggle}>
+                X
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+    />
+  )
+  const loginModal = (
+    <Form
+      onSubmit={handleUserLogin}
+      handleUserLogin={handleUserLogin}
+      initialValues={loginFormData}
+      validate={(values) => {
+        const errors = {}
+        if (!values.email) {
+          errors.email = 'Email Required'
+        }
+        if (!values.password) {
+          errors.password = 'Password Required'
+        }
+        return errors
+      }}
+      render={({ submitError, handleUserLogin, submitting, values }) => (
+        <Modal isOpen={true} className="auth_modal">
+          <h3>Welcome Back!</h3>
+          <form
+            className="auth_modal_form"
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleUserLogin(values)
+            }}
+          >
+            <Field name="email">
+              {({ input, meta }) => (
+                <div className="auth_modal_field">
+                  <label className="auth_modal_label">Email</label>
+                  <input {...input} type="text" placeholder="email" />
+                  {(meta.error || meta.submitError) && meta.touched && (
+                    <span>{meta.error || meta.submitError}</span>
+                  )}
+                </div>
+              )}
+            </Field>
+            <Field name="password">
+              {({ input, meta }) => (
+                <div className="auth_modal_field">
+                  <label className="auth_modal_label">Password</label>
+                  <input {...input} type="password" placeholder="Password" />
+                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
+            {submitError && <div className="error">{submitError}</div>}
+            <div className="registration_buttons">
+              <button className="auth_modal_buttons" disabled={submitting}>
+                Login
+              </button>
+              <button className="modal_exit" onClick={handleLoginToggle}>
+                X
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+    />
+  )
+
   return (
     <div className="register_login">
-      <div className="register">
-        <button onClick={(e) => handleModalToggle(e)}>Register</button>
+      <div className="register_nav_bar" onClick={handleRegisterToggle}>
+        Register
       </div>
-      <Modal
-        isOpen={true}
-        className="registration_modal"
-        onRequestClose={(e) => handleModalToggle(e)}
-      >
-        <button className="modal_exit" onClick={(e) => handleModalToggle(e)}>
-          X
-        </button>
-        <h2>Register</h2>
-        <form
-          className="registration_modal_form"
-          onSubmit={(e) => handleUserRegistration(e)}
-        >
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            onChange={(e) => handleFormChange(e)}
-          />
-          <label for="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            onChange={(e) => handleFormChange(e)}
-          />
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="pasword"
-            onChange={(e) => handleFormChange(e)}
-          />
-          <button>Sign Up</button>
-        </form>
-      </Modal>
-      <div className="login">Login</div>
+      {props.authenticationState.modalToggled &&
+      props.authenticationState.registration
+        ? registrationModal
+        : null}
+      <div className="login_nav_bar" onClick={handleLoginToggle}>
+        Login
+      </div>
+      {props.authenticationState.modalToggled && props.authenticationState.login
+        ? loginModal
+        : null}
     </div>
   )
 }

@@ -5,14 +5,18 @@ import {
   LOGIN_FAIL,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  AUTH_MODAL_TOGGLE
+  AUTH_MODAL_TOGGLE,
+  TOGGLE_LOGIN,
+  TOGGLE_REGISTER
 } from '../types'
 
-const user = JSON.parse(localStorage.getItem('user'))
-
-const iState = user
-  ? { isLoggedIn: true, modalToggled: false, user }
-  : { isLoggedIn: false, modalToggled: false, user: null }
+const iState = {
+  user: JSON.parse(localStorage.getItem('user')),
+  isLoggedIn: false,
+  modalToggled: false,
+  registration: false,
+  login: false
+}
 
 const AuthReducer = (state = iState, action) => {
   switch (action.type) {
@@ -45,7 +49,39 @@ const AuthReducer = (state = iState, action) => {
     case AUTH_MODAL_TOGGLE:
       return {
         ...state,
-        modalToggled: true
+        modalToggled: !state.modalToggled
+      }
+    case TOGGLE_LOGIN:
+      if (state.login === false) {
+        return {
+          ...state,
+          login: true,
+          modalToggled: true,
+          registration: false
+        }
+      } else {
+        return {
+          ...state,
+          login: false,
+          modalToggled: false,
+          registration: false
+        }
+      }
+    case TOGGLE_REGISTER:
+      if (state.registration === false) {
+        return {
+          ...state,
+          registration: true,
+          modalToggled: true,
+          login: false
+        }
+      } else {
+        return {
+          ...state,
+          registration: false,
+          modalToggled: false,
+          login: false
+        }
       }
     default:
       return state

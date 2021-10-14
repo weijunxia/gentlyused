@@ -3,12 +3,12 @@
   --registration-modal-width: 40vw;
 }
 
-.registration_modal {
+.auth_modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: sticky;
+  position: absolute;
   top: 30vh;
   bottom: 30vh;
   left: 30vw;
@@ -18,11 +18,32 @@
   border: 1px solid lightgray;
 }
 
-.registration_modal_form {
+.auth_modal_form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.auth_modal_field {
+  display: flex;
+  flex-direction: column;
+  margin: 1vh;
+  width: 15vw;
+}
+.auth_modal_label {
+  margin-bottom: 1vh;
+}
+
+.auth_modal_buttons {
+  margin-top: 1vh;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1;
+  color: black;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 .modal_exit {
@@ -35,7 +56,10 @@
   line-height: 1;
   color: #000;
   text-shadow: 0 1px 0 #fff;
-  filter: alpha(opacity=20);
-  opacity: 0.2;
+  opacity: 0.3;
   cursor: pointer;
+}
+
+.modal_exit:hover {
+  opacity: 1;
 }
