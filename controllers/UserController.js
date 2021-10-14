@@ -23,7 +23,7 @@ const GetUserProfile = async (req, res) => {
 const GetUserProfileProducts = async (req, res) => {
   try {
     const userAndProducts = await User.findByPk(req.params.id, {
-      include: [{ model: Product }]
+      include: [{ model: Product, as: 'users_products' }]
     })
     res.send(userAndProducts)
   } catch (error) {

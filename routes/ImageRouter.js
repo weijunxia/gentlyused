@@ -2,6 +2,8 @@ const controller = require('../controllers/ImageController')
 const middleware = require('../middleware')
 const Router = require('express').Router()
 
+Router.get('/image/:url', controller.GetS3Url)
+
 Router.post(
   '/',
   middleware.stripToken,

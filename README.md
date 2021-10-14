@@ -34,3 +34,5 @@ Google Slides [Pitch Deck](https://docs.google.com/presentation/d/1E6WKr777mmTI7
 - [ ] Search Functionality 
 
 ## 📖 Credits
+- [Loading.io](https://loading.io/) for loading pages
+- [Sam Meech-Ward](https://www.youtube.com/watch?v=yGYeYJpRWPM) for the tutorial on Amazon S3 configuration.

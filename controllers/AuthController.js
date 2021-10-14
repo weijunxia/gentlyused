@@ -7,9 +7,7 @@ const Login = async (req, res) => {
       where: { email: req.body.email },
       raw: true
     })
-    if (user.deleted === true) {
-      user.deleted = false
-    }
+
     if (
       user &&
       (await middleware.comparePassword(
@@ -21,6 +19,7 @@ const Login = async (req, res) => {
         id: user.id,
         email: user.email
       }
+      // const updatedUser = await User.update({ deleted: false })
       let token = middleware.createToken(payload)
       return res.send({ user: payload, token })
     }
@@ -33,13 +32,14 @@ const Login = async (req, res) => {
 const Register = async (req, res) => {
   try {
     const { username, email, password, picture } = req.body
-    console.log(password)
+    console.log(req.body)
     let password_digest = await middleware.hashPassword(password)
     const user = await User.create({
       username,
       email,
       password_digest,
-      picture
+      picture,
+      deleted: false
     })
     res.send(user)
   } catch (error) {
@@ -59,7 +59,7 @@ const UpdatePassword = async (req, res) => {
       ))
     ) {
       let passwordDigest = await middleware.hashPassword(newPassword)
-      await user.update({ password_digest })
+      await user.update({ passwordDigest })
       return res.send({ status: 'Ok', payload: user })
     }
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })

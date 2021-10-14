@@ -1,0 +1,8 @@
+.shop_feed {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 100px;
+}

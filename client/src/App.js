@@ -6,6 +6,7 @@ import Banner from './components/Banner'
 import Home from './pages/Home'
 import ShopFeed from './components/ShopFeed'
 import Sell from './pages/Sell'
+import ProductPage from './pages/ProductPage'
 // import ShopFeed from './components/ShopFeed'
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/shop" component={ShopFeed} />
           <Route exact path="/sell" component={Sell} />
+          <Route exact path="/shop/product/:id" component={ProductPage} />
         </Switch>
       </div>
     </div>

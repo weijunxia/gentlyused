@@ -24,6 +24,8 @@ const AuthReducer = (state = iState, action) => {
       return {
         ...state,
         isLoggedIn: false,
+        registration: false,
+        login: true,
         modalToggled: true
       }
     case REGISTER_FAIL:

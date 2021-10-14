@@ -29,12 +29,12 @@ const QueryProducts = async (req, res) => {
 
 const GetAllFavoritesOneProduct = async (req, res) => {
   try {
-    const id = req.params.product_id
+    const id = req.params.id
     const favorites = await User.findAll({
       include: [
         {
           model: Product,
-          as: 'product',
+          as: 'user_favorite',
           where: { id: id }
         }
       ],

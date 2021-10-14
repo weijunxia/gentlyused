@@ -17,7 +17,9 @@ function NavBar(props) {
   if (props.user) {
     authenticatedOptions = (
       <div className="nav_bar_right">
-        <div className="nav_bar_shop">Shop</div>
+        <div className="nav_bar_shop">
+          <NavLink to="/shop">Shop</NavLink>
+        </div>
         <div className="nav_bar_sell">
           <NavLink to="/sell">Sell</NavLink>
         </div>
@@ -31,7 +33,9 @@ function NavBar(props) {
   if (!props.user) {
     unauthenticatedOptions = (
       <div className="nav_bar_right">
-        <div className="nav_bar_shop">Shop</div>
+        <div className="nav_bar_shop">
+          <NavLink to="/shop">Shop</NavLink>
+        </div>
         <div className="nav_bar_sell">
           <NavLink to="/sell">Sell</NavLink>
         </div>

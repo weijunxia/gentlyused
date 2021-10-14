@@ -20,7 +20,7 @@ export const PostRegisterUser = (data) => {
       const response = await RegisterUser(data)
 
       dispatch({ type: USER_REGISTER, payload: response.data })
-      dispatch({ type: REGISTER_SUCCESS, payload: response.data.message })
+      dispatch({ type: REGISTER_SUCCESS, payload: response.data })
     } catch (error) {
       const message =
         (error.response &&
@@ -39,7 +39,7 @@ export const PostLoginUser = (data) => {
     try {
       const response = await SignInUser(data)
       dispatch({ type: USER_LOGIN, payload: response.data })
-      dispatch({ type: LOGIN_SUCCESS, payload: response.data.message })
+      dispatch({ type: LOGIN_SUCCESS, payload: response.data })
     } catch (error) {
       const message =
         (error.response &&
