@@ -1,14 +1,23 @@
-const { CREATE_ORDER } = require('../types')
+import { CreateOrder, DeleteOrder } from '../../services/OrderServices'
 
-const iState = {
-  order: []
+const { CREATE_ORDER, DELETE_ORDER } = require('../types')
+
+export const PostOrder = (data) => {
+  return async (dispatch) => {
+    try {
+      const order = await CreateOrder(data)
+      dispatch({ type: CREATE_ORDER, payload: order.data })
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
-const OrderReducer = (state = iState, action) => {
-  switch (action.type) {
-    case CREATE_ORDER:
-      return { ...state, order: action.payload }
-    default:
-      return { ...state }
+export const RemoveOrder = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await DeleteOrder(id)
+      dispatch({ type: DELETE_ORDER, payload: res.data })
+    } catch (error) {}
   }
 }

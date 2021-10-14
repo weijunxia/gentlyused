@@ -33,3 +33,4 @@ export const SET_AWS_S3_IMAGE_URL = 'SET_AWS_S3_IMAGE_URL'
 export const S3_RESPONSE = 'S3_RESPONSE'
 
 export const CREATE_ORDER = 'CREATE_ORDER'
+export const DELETE_ORDER = 'DELETE_ORDER'
