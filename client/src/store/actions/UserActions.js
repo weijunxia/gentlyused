@@ -76,10 +76,10 @@ export const LoadUserProfileProducts = (id) => {
   }
 }
 
-export const LoadUserFavorites = (id) => {
+export const LoadUserFavorites = (username) => {
   return async (dispatch) => {
     try {
-      const userFavorites = GetUserFavorites(id)
+      const userFavorites = GetUserFavorites(username)
       dispatch({ type: GET_USER_PROFILE_FAVORITES, payload: userFavorites })
     } catch (error) {
       throw error

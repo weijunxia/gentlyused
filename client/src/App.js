@@ -13,7 +13,7 @@ import UserFavorites from './components/UserFavorites'
 function App() {
   return (
     <div className="App">
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <NavBar />
         <Switch>
           <Route exact path="/" component={Home} />

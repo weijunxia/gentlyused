@@ -21,13 +21,13 @@ const uploader = require('../middleware/uploader')
 //   }
 // }
 
-// const DeleteImage = async (req, res) => {
-//   try {
-//     await Image.destroy({ where: { id: req.params.id } })
-//   } catch (error) {
-//     throw error
-//   }
-// }
+const DeleteImage = async (req, res) => {
+  try {
+    await Image.destroy({ where: { id: req.params.id } })
+  } catch (error) {
+    throw error
+  }
+}
 const GetImage = async (req, res) => {
   try {
     console.log(req.body)
@@ -60,5 +60,6 @@ const CreateImage = async (req, res) => {
 
 module.exports = {
   GetImage,
-  CreateImage
+  CreateImage,
+  DeleteImage
 }

@@ -32,13 +32,7 @@ function ShopFeed(props) {
   return (
     <div className="shop_feed">
       {props.productState.products.map((product) => (
-        <NavLink
-          key={product.id}
-          to={`/product/${product.id}`}
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          <ProductCard key={product.id} {...product} />
-        </NavLink>
+        <ProductCard key={product.id} {...product} />
       ))}
     </div>
   )

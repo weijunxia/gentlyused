@@ -7,12 +7,13 @@ Router.get('/:username', controller.GetUsernameProfile)
 Router.get('/email/:email', controller.GetUserEmailProfile)
 Router.get('/shop/:id', controller.GetUserProfileProducts)
 Router.get('/favorites/:username', controller.GetUserProfileFavorites)
-Router.get(
-  '/toggle/favorites',
-  middleware.stripToken,
-  middleware.verifyToken,
-  controller.AddOrRemoveUserFavoriteProduct
-)
+
+// Router.post(
+//   '/toggle/favorites',
+//   middleware.stripToken,
+//   middleware.verifyToken,
+//   controller.AddOrRemoveUserFavoriteProduct
+// )
 Router.get(
   '/orders/:id',
   middleware.stripToken,

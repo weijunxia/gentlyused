@@ -1,10 +1,11 @@
-const { User, Favorite } = require('../models')
+const { User, Favorite, Product } = require('../models')
 const { Op } = require('sequelize')
 
 const AddToFavorites = async (req, res) => {
   try {
-    const addFavorite = await Favorite.create({ ...req.body })
-    res.send(addFavorite)
+    const fav = Favorite.create({ ...req.body })
+
+    await res.send(fav)
   } catch (error) {
     throw error
   }
@@ -25,6 +26,5 @@ const RemoveFromFavorites = async (req, res) => {
 
 module.exports = {
   AddToFavorites,
-  RemoveFromFavorites,
-  GetAllFavoritesOneProduct
+  RemoveFromFavorites
 }

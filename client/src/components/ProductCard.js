@@ -1,34 +1,48 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { FavoriteBorder, Favorite } from '@mui/icons-material'
-// import { NavLink } from 'react-router-dom'
-// import {
-//   LoadAllProducts,
-//   LoadProductById,
-//   LoadProductSearch,
-//   UpdateUserProduct,
-//   DeleteUserProduct
-// } from '../store/actions/ProductActions'
+import {
+  LoadAllProducts,
+  LoadProductById,
+  LoadProductSearch,
+  UpdateUserProduct,
+  DeleteUserProduct
+} from '../store/actions/ProductActions'
+import {
+  AddRemoveProductToUserFavorite,
+  LoadUserFavorites
+} from '../store/actions/UserActions'
 import '../styles/productcard.css'
-import ProductPage from '../pages/ProductPage'
+import { FavoriteBorder, Favorite } from '@mui/icons-material'
 
-// const mapStateToProps = ({ productState }) => {
-//   return { productState }
-// }
+const mapStateToProps = ({ productState, userState }) => {
+  return { productState, userState }
+}
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     fetchProducts: () => dispatch(LoadAllProducts())
-//   }
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProducts: () => dispatch(LoadAllProducts()),
+    toggleFavoriteProduct: (username, productId) =>
+      dispatch(AddRemoveProductToUserFavorite(username, productId)),
+    loadUserFavorites: (username) => dispatch(LoadUserFavorites(username))
+  }
+}
 
 function ProductCard(props) {
+  const handleFavoriteToggle = async (username, productId) => {
+    username = props.userState.individualUser.username
+    console.log(username)
+    productId = props.id
+    console.log(productId)
+    await props.toggleFavoriteProduct(username, productId)
+    // await props.loadUserFavorites(username)
+  }
+
   return (
-    <NavLink
-      to={{ pathname: `/shop/product/${props.id}`, state: { ...props } }}
-    >
-      <div className="product_card">
+    <div className="product_card">
+      <NavLink
+        to={{ pathname: `/shop/product/${props.id}`, state: { ...props } }}
+      >
         <img
           className="product_card_image"
           src="https://picsum.photos/200/300"
@@ -43,11 +57,10 @@ function ProductCard(props) {
         <p className="product_card_size">{props.size}</p>
         <p className="product_card_description">{props.description}</p>
         <p className="product_card_price">${props.price}</p>
-
-        <FavoriteBorder />
-      </div>
-    </NavLink>
+      </NavLink>
+      <FavoriteBorder onClick={handleFavoriteToggle} />
+    </div>
   )
 }
-// connect(mapStateToProps, mapDispatchToProps)
-export default ProductCard
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)

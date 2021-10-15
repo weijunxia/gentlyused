@@ -4,7 +4,8 @@ const { Op } = require('sequelize')
 const GetAllUserProfiles = async (req, res) => {
   try {
     const users = await User.findAll({
-      where: { deleted: false }
+      where: { deleted: false },
+      include: [{ model: Product, as: 'user_favorite' }]
     })
     res.send(users)
   } catch (error) {
@@ -45,7 +46,8 @@ const GetUserEmailProfile = async (req, res) => {
 
 const GetUserProfileProducts = async (req, res) => {
   try {
-    const userAndProducts = await User.findByPk(req.params.id, {
+    const userAndProducts = await User.findOne({
+      where: { username: req.params.username },
       include: [{ model: Product, as: 'users_products' }]
     })
     res.send(userAndProducts)
@@ -66,26 +68,45 @@ const GetUserProfileOrders = async (req, res) => {
 }
 const AddOrRemoveUserFavoriteProduct = async (req, res) => {
   try {
-    const user = await User.findOne({
+    let user = await User.findOne({
       where: {
         username: req.body.username
       },
       include: [{ model: Product, as: 'user_favorite' }]
     })
-    const userFavorites = user.dataValues.user_favorite
-    const product = await Product.findOne({
+
+    let product = await Product.findOne({
       where: {
         id: req.body.id
       }
     })
-    if (userFavorites.includes(product)) {
-      let productIndex = userFavorites.indexOf(product)
-      userFavorites.splice(productIndex, 1)
-      res.send(userFavorites)
-    } else {
-      userFavorites.splice(0, 0, product)
-      res.send(userFavorites)
-    }
+    user = user.dataValues
+    product = product.dataValues
+    user.user_favorite.filter((products) => {
+      if (products.id === req.body.id) {
+        user.user_favorite.splice(user.user_favorite.indexOf(products))
+        user.save()
+        console.log(user)
+        res.send(user)
+      } else {
+        user.user_favorite.push(product)
+        user.save()
+        console.log(user)
+        res.send(user)
+      }
+    })
+    // if (user.user_favorite.includes(product)) {
+    //   let productIndex = user.user_favorite.indexOf(product)
+    //   user.user_favorite.splice(productIndex, 1)
+    //   console.log(user)
+    //   await user.update()
+    //   res.send(user)
+    // } else {
+    //   user.user_favorite.splice(0, 0, product)
+    //   console.log(user)
+    //   await user.update()
+    //   res.send(user)
+    // }
   } catch (error) {
     throw error
   }
