@@ -5,7 +5,8 @@ import {
   GetUserOrders,
   DeleteUser,
   GetUsernameProfile,
-  GetUserEmailProfile
+  GetUserEmailProfile,
+  AddOrRemoveUserFavorite
 } from '../../services/UserServices'
 
 import {
@@ -16,7 +17,8 @@ import {
   GET_USER_PROFILE_ORDERS,
   GET_USER_PROFILE_FAVORITES,
   DELETE_USER,
-  GET_PRODUCT_FAVORITES
+  GET_PRODUCT_FAVORITES,
+  INSERT_REMOVE_PRODUCT_USER_FAVORITES
 } from '../types'
 
 export const LoadAllUsers = () => {
@@ -24,6 +26,17 @@ export const LoadAllUsers = () => {
     try {
       const users = await GetAllUsers()
       dispatch({ type: GET_ALL_USER_PROFILES, payload: users })
+    } catch (error) {
+      throw error
+    }
+  }
+}
+
+export const AddRemoveProductToUserFavorite = (username, productId) => {
+  return async (dispatch) => {
+    try {
+      const res = await AddOrRemoveUserFavorite(username, productId)
+      dispatch({ type: INSERT_REMOVE_PRODUCT_USER_FAVORITES, payload: res })
     } catch (error) {
       throw error
     }
@@ -40,11 +53,12 @@ export const LoadUsernameProfile = (username) => {
     }
   }
 }
+
 export const LoadUserEmailProfile = (email) => {
   return async (dispatch) => {
     try {
       const user = await GetUserEmailProfile(email)
-      dispatch({ type: GET_USERNAME_PROFILE, payload: user })
+      dispatch({ type: GET_USER_EMAIL_PROFILE, payload: user })
     } catch (error) {
       throw error
     }

@@ -6,11 +6,12 @@ Router.get('/', controller.GetAllUserProfiles)
 Router.get('/:username', controller.GetUsernameProfile)
 Router.get('/email/:email', controller.GetUserEmailProfile)
 Router.get('/shop/:id', controller.GetUserProfileProducts)
+Router.get('/favorites/:username', controller.GetUserProfileFavorites)
 Router.get(
-  '/favorites/:id',
+  '/toggle/favorites',
   middleware.stripToken,
   middleware.verifyToken,
-  controller.GetUserProfileFavorites
+  controller.AddOrRemoveUserFavoriteProduct
 )
 Router.get(
   '/orders/:id',

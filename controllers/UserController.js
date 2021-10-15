@@ -1,4 +1,4 @@
-const { User, Product, Order } = require('../models')
+const { User, Product, Order, Favorite } = require('../models')
 const { Op } = require('sequelize')
 
 const GetAllUserProfiles = async (req, res) => {
@@ -11,7 +11,6 @@ const GetAllUserProfiles = async (req, res) => {
     throw error
   }
 }
-
 const GetUsernameProfile = async (req, res) => {
   try {
     const userProfile = await User.findOne({
@@ -65,13 +64,41 @@ const GetUserProfileOrders = async (req, res) => {
     throw error
   }
 }
+const AddOrRemoveUserFavoriteProduct = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        username: req.body.username
+      },
+      include: [{ model: Product, as: 'user_favorite' }]
+    })
+    const userFavorites = user.dataValues.user_favorite
+    const product = await Product.findOne({
+      where: {
+        id: req.body.id
+      }
+    })
+    if (userFavorites.includes(product)) {
+      let productIndex = userFavorites.indexOf(product)
+      userFavorites.splice(productIndex, 1)
+      res.send(userFavorites)
+    } else {
+      userFavorites.splice(0, 0, product)
+      res.send(userFavorites)
+    }
+  } catch (error) {
+    throw error
+  }
+}
 
 const GetUserProfileFavorites = async (req, res) => {
   try {
-    const userFavorites = await User.findByPk(req.params.id, {
-      include: [{ model: Favorite }]
+    console.log(req.params.username)
+    const userFavorites = await User.findOne({
+      where: { username: req.params.username },
+      include: [{ model: Product, as: 'user_favorite' }]
     })
-    res.send(userFavorites)
+    res.send(userFavorites.dataValues.user_favorite)
   } catch (error) {
     throw error
   }
@@ -99,6 +126,7 @@ module.exports = {
   GetUserEmailProfile,
   GetUserProfileProducts,
   GetUserProfileOrders,
+  AddOrRemoveUserFavoriteProduct,
   GetUserProfileFavorites,
   DeleteUser
 }

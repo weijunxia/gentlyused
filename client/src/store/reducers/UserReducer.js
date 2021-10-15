@@ -6,7 +6,7 @@ import {
   GET_USER_PROFILE_ORDERS,
   GET_USER_PROFILE_FAVORITES,
   DELETE_USER,
-  GET_PRODUCT_FAVORITES
+  INSERT_REMOVE_PRODUCT_USER_FAVORITES
 } from '../types'
 
 const iState = {
@@ -30,6 +30,8 @@ const UserReducer = (state = iState, action) => {
       return { ...state, individualUserProducts: action.payload }
     case GET_USER_PROFILE_ORDERS:
       return { ...state, individualUserOrders: action.payload }
+    case INSERT_REMOVE_PRODUCT_USER_FAVORITES:
+      return { ...state, individualUser: action.payload }
     case GET_USER_PROFILE_FAVORITES:
       return { ...state, individualUserFavorites: action.payload }
     case DELETE_USER:

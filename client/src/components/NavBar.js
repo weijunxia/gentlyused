@@ -1,12 +1,13 @@
-import { connect } from 'react-redux'
 import React from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Favorite, AccountCircle } from '@mui/icons-material'
+
 import AuthenticationForm from './AuthenticationForm'
 import '../styles/navbar.css'
 
-const mapStateToProps = ({ authenticationState }) => {
-  return { authenticationState }
+const mapStateToProps = ({ authenticationState, userState }) => {
+  return { authenticationState, userState }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -25,10 +26,14 @@ function NavBar(props) {
           <NavLink to="/sell">Sell</NavLink>
         </div>
         <div className="nav_bar_favorites">
-          <Favorite />
+          <NavLink to={`/${props.userState.individualUser.username}/favorites`}>
+            <Favorite />
+          </NavLink>
         </div>
         <div className="nav_bar_profile">
-          <AccountCircle />
+          <NavLink to={`/${props.userState.individualUser.username}`}>
+            <AccountCircle />
+          </NavLink>
         </div>
       </div>
     )

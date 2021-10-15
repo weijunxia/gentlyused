@@ -11,8 +11,8 @@ import {
   ToggleRegisterModal,
   CheckUserSession
 } from '../store/actions/AuthActions'
-import '../styles/authenticationform.css'
 import { LoadUserEmailProfile } from '../store/actions/UserActions'
+import '../styles/authenticationform.css'
 
 const mapStateToProps = ({ authenticationState, userState }) => {
   return { authenticationState, userState }
