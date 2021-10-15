@@ -1,3 +1,4 @@
+import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import React, { useEffect } from 'react'
 import { useLocation, NavLink } from 'react-router-dom'
@@ -10,7 +11,7 @@ import {
   ToggleProductDeleteModal
 } from '../store/actions/ProductActions'
 import { LoadUsernameProfile } from '../store/actions/UserActions'
-import { PostOrder } from '../store/actions/OrderActions'
+import { PostOrder, ToggleOrderModal } from '../store/actions/OrderActions'
 import '../styles/productpage.css'
 
 const mapStateToProps = ({
@@ -29,7 +30,8 @@ const mapDispatchToProps = (dispatch) => {
     toggleProductModal: () => dispatch(ToggleProductDeleteModal()),
     loadAllProducts: () => dispatch(LoadAllProducts()),
     loadUserProfile: (username) => dispatch(LoadUsernameProfile(username)),
-    createOrder: (data) => dispatch(PostOrder(data))
+    createOrder: (data) => dispatch(PostOrder(data)),
+    toggleOrderModal: () => dispatch(ToggleOrderModal())
   }
 }
 
@@ -40,8 +42,11 @@ function ProductPage(props) {
     await props.loadUserProfile(data)
   }
   const deleteUserProduct = async () => {
-    props.deleteUserProduct(locationState.id)
-    props.toggleProductModal()
+    await props.deleteUserProduct(locationState.id)
+    await props.toggleProductModal()
+  }
+  const postOrder = async (data) => {
+    await props.createOrder(data)
   }
   const checkUserSession = async (token) => {
     const sessionStatus = await props.checkUserSession(token)
@@ -59,29 +64,65 @@ function ProductPage(props) {
       <button onClick={deleteUserProduct}>Delete Listing</button>
     </div>
   )
-  let buyProduct = <div></div>
+  let buyProduct = (
+    <div className="product_page_buy">
+      <button
+        className="product_page_buy_button"
+        onClick={props.toggleOrderModal}
+      >
+        Purchase
+      </button>
+    </div>
+  )
+  const orderModal = (
+    <Modal isOpen={true} className="purchase_modal">
+      <button className="purchase_modal_exit" onClick={props.toggleOrderModal}>
+        X
+      </button>
+      <div className="purchase_item_wrapper_right">
+        <img
+          class="order_modal_image"
+          src="https://picsum.photos/200/300"
+          alt={`${locationState.title}, ${locationState.description}, size ${locationState.size}, price $ ${locationState.price}`}
+        />
+        <p>{locationState.title}</p>
+        <p>{locationState.description}</p>
+        <p>Size: {locationState.size}</p>
+        <p>Total: ${locationState.price}</p>
+        <button>Purchase</button>
+      </div>
+      <div className="purchase_item_wrapper_left">
+        <div className="purchase_modal_order_form"></div>
+      </div>
+    </Modal>
+  )
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     checkUserSession(token)
-
     props.loadAllProducts()
   }, [])
 
   return (
     <div className="product_page">
-      <div>{locationState.title}</div>
-      <div>{locationState.description}</div>
-      <div>{locationState.size}</div>
-      <div>${locationState.price}</div>
-      <div>{locationState.sold}</div>
-      <div>{locationState.createdAt}</div>
+      <img
+        class="product_page_image"
+        src="https://picsum.photos/200/300"
+        alt={`${locationState.title}, ${locationState.description}, size ${locationState.size}, price $ ${locationState.price}`}
+      />
+      <p>{locationState.title}</p>
+      <p>{locationState.description}</p>
+      <p>{locationState.size}</p>
+      <p>${locationState.price}</p>
+      <p>{locationState.sold}</p>
+      <p>{locationState.createdAt}</p>
       <div>
         {props.userState.individualUser.id === locationState.product_user_id &&
         props.authenticationState.isLoggedIn
           ? productOwnerControls
-          : null}
+          : buyProduct}
       </div>
+      {props.orderState.orderModalToggle ? orderModal : null}
     </div>
   )
 }

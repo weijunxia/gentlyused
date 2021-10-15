@@ -1,0 +1,14 @@
+.purchase_modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 15vh;
+  bottom: 15vh;
+  right: 25vw;
+  left: 25vw;
+  align-items: center;
+  height: 70vh;
+  width: 50vw;
+  background-color: beige;
+}

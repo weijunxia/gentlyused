@@ -1,6 +1,6 @@
 import { CreateOrder, DeleteOrder } from '../../services/OrderServices'
 
-const { CREATE_ORDER, DELETE_ORDER } = require('../types')
+const { CREATE_ORDER, DELETE_ORDER, TOGGLE_ORDER_MODAL } = require('../types')
 
 export const PostOrder = (data) => {
   return async (dispatch) => {
@@ -19,5 +19,15 @@ export const RemoveOrder = (id) => {
       const res = await DeleteOrder(id)
       dispatch({ type: DELETE_ORDER, payload: res.data })
     } catch (error) {}
+  }
+}
+
+export const ToggleOrderModal = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: TOGGLE_ORDER_MODAL })
+    } catch (error) {
+      throw error
+    }
   }
 }

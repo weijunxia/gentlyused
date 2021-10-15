@@ -34,3 +34,4 @@ export const S3_RESPONSE = 'S3_RESPONSE'
 
 export const CREATE_ORDER = 'CREATE_ORDER'
 export const DELETE_ORDER = 'DELETE_ORDER'
+export const TOGGLE_ORDER_MODAL = 'TOGGLE_ORDER_MODAL'
