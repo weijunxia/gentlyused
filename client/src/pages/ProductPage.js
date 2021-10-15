@@ -36,10 +36,15 @@ const mapDispatchToProps = (dispatch) => {
 function ProductPage(props) {
   const location = useLocation()
   const locationState = location.state
-
+  const loadUser = async (data) => {
+    await props.loadUserProfile(data)
+  }
   const deleteUserProduct = async () => {
     props.deleteUserProduct(locationState.id)
     props.toggleProductModal()
+  }
+  const checkUserSession = async (token) => {
+    const sessionStatus = await props.checkUserSession(token)
   }
   let productOwnerControls = (
     <div>
@@ -55,13 +60,11 @@ function ProductPage(props) {
     </div>
   )
   let buyProduct = <div></div>
-  const checkUserSession = async (token) => {
-    const sessionStatus = await props.checkUserSession(token)
-  }
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     checkUserSession(token)
+
     props.loadAllProducts()
   }, [])
 

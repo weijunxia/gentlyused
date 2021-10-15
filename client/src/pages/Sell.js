@@ -39,8 +39,7 @@ function Sell(props) {
     await sleep(300)
     const sessionStatus = await props.checkUserSession(token)
     values.product_user_id = sessionStatus
-    let priceToInt = parseInt(values.price)
-    values.price = priceToInt
+    values.price = parseInt(values.price)
     await props.postProduct(values)
     await props.getAllProducts()
   }
@@ -129,6 +128,8 @@ Listed price is intended for profile exposure. No one will be buying these at 50
               <div className="sell_page_input_field">
                 <label className="sell_page_label">Price $</label>
                 <input {...input} type="number" placeholder="5000" />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span>{meta.error}</span>}
               </div>
             )}
           </Field>

@@ -28,7 +28,11 @@ const ProductReducer = (state = iState, action) => {
     case CREATE_PRODUCT:
       return { ...state, products: action.payload }
     case UPDATE_PRODUCT:
-      return { ...state, individualProduct: action.payload }
+      return {
+        ...state,
+        individualProduct: action.payload,
+        products: action.payload
+      }
     case DELETE_PRODUCT:
       return { ...state, products: action.payload }
     case TOGGLE_PRODUCT_DELETE_MODAL:

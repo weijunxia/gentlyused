@@ -66,7 +66,7 @@ export const UpdateUserProduct = (id, data) => {
   return async (dispatch) => {
     try {
       const updatedProduct = await UpdateProduct(id, data)
-      dispatch({ type: UPDATE_PRODUCT, payload: updatedProduct })
+      dispatch({ type: UPDATE_PRODUCT, payload: updatedProduct.data })
     } catch (error) {
       throw error
     }
