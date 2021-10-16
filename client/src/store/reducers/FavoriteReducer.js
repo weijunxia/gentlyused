@@ -11,7 +11,7 @@ const FavoriteReducer = (state = iState, action) => {
     case REMOVE_FROM_FAVORITES:
       return { ...state, userFavorites: action.payload }
     default:
-      return { state }
+      return state
   }
 }
 export default FavoriteReducer

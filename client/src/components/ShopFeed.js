@@ -37,7 +37,7 @@ function ShopFeed(props) {
   return (
     <div className="shop_feed">
       {props.productState.products.map((product) => (
-        <ProductCard key={product.id} />
+        <ProductCard key={product.id} {...product} />
       ))}
     </div>
   )

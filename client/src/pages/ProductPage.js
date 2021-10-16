@@ -1,5 +1,5 @@
 import Modal from 'react-modal'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import React, { useEffect } from 'react'
 import { useLocation, NavLink } from 'react-router-dom'
 import { CheckUserSession } from '../store/actions/AuthActions'
@@ -31,18 +31,21 @@ const mapDispatchToProps = (dispatch) => {
     loadAllProducts: () => dispatch(LoadAllProducts()),
     loadUserProfile: (username) => dispatch(LoadUsernameProfile(username)),
     createOrder: (data) => dispatch(PostOrder(data)),
-    toggleOrderModal: () => dispatch(ToggleOrderModal())
+    toggleOrderModal: () => dispatch(ToggleOrderModal()),
+    LoadProductById: (id) => dispatch(LoadProductById(id))
   }
 }
 
 function ProductPage(props) {
+  const dispatch = useDispatch()
+
   const location = useLocation()
-  const locationState = location.state
+
   const loadUser = async (data) => {
     await props.loadUserProfile(data)
   }
-  const deleteUserProduct = async () => {
-    await props.deleteUserProduct(locationState.id)
+  const deleteUserProduct = async (id) => {
+    await props.deleteUserProduct(id)
     await props.toggleProductModal()
   }
   const postOrder = async (data) => {
@@ -55,8 +58,7 @@ function ProductPage(props) {
     <div>
       <NavLink
         to={{
-          pathname: `/product/update/${locationState.id}`,
-          state: { ...locationState }
+          pathname: `/product/update/${props.productState.individualProduct.id}`
         }}
       >
         <button>Update Listing</button>
@@ -83,12 +85,12 @@ function ProductPage(props) {
         <img
           class="order_modal_image"
           src="https://picsum.photos/200/300"
-          alt={`${locationState.title}, ${locationState.description}, size ${locationState.size}, price $ ${locationState.price}`}
+          alt={`${props.productState.individualProduct.title}, ${props.productState.individualProduct.description}, size ${props.productState.individualProduct.size}, price $ ${props.productState.individualProduct.price}`}
         />
-        <p>{locationState.title}</p>
-        <p>{locationState.description}</p>
-        <p>Size: {locationState.size}</p>
-        <p>Total: ${locationState.price}</p>
+        <p>{props.productState.individualProduct.title}</p>
+        <p>{props.productState.individualProduct.description}</p>
+        <p>Size: {props.productState.individualProduct.size}</p>
+        <p>Total: ${props.productState.individualProduct.price}</p>
         <button>Purchase</button>
       </div>
       <div className="purchase_item_wrapper_left">
@@ -100,24 +102,26 @@ function ProductPage(props) {
   useEffect(() => {
     const token = localStorage.getItem('token')
     checkUserSession(token)
-    props.loadAllProducts()
-  }, [])
+    // props.loadAllProducts()
+    props.LoadProductById(props.match.params.id)
+  }, [dispatch])
 
   return (
     <div className="product_page">
       <img
         class="product_page_image"
         src="https://picsum.photos/200/300"
-        alt={`${locationState.title}, ${locationState.description}, size ${locationState.size}, price $ ${locationState.price}`}
+        alt={`${props.productState.individualProduct.title}, ${props.productState.individualProduct.description}, size ${props.productState.individualProduct.size}, price $ ${props.productState.individualProduct.price}`}
       />
-      <p>{locationState.title}</p>
-      <p>{locationState.description}</p>
-      <p>{locationState.size}</p>
-      <p>${locationState.price}</p>
-      <p>{locationState.sold}</p>
-      <p>{locationState.createdAt}</p>
+      <p>{props.productState.individualProduct.title}</p>
+      <p>{props.productState.individualProduct.description}</p>
+      <p>{props.productState.individualProduct.size}</p>
+      <p>${props.productState.individualProduct.price}</p>
+      <p>{props.productState.individualProduct.sold}</p>
+      <p>{props.productState.individualProduct.createdAt}</p>
       <div>
-        {props.userState.individualUser.id === locationState.product_user_id &&
+        {props.userState.individualUser.id ===
+          props.productState.individualProduct.product_user_id &&
         props.authenticationState.isLoggedIn
           ? productOwnerControls
           : buyProduct}

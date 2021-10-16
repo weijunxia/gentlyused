@@ -55,37 +55,24 @@ function ProductCard(props) {
 
   return (
     <div className="product_card">
-      {props.productState.products.map(
-        async (product, index) =>
-          await (
-            <NavLink
-              to={{
-                pathname: `/shop/product/${product[index].id}`
-              }}
-            >
-              <img
-                className="product[index]_card_image"
-                src="https://picsum.photos/200/300"
-                alt={`${product[index].title} ${product[index].description}`}
-              />
+      <NavLink to={{ pathname: `/shop/product/${props.id}` }}>
+        <div className="product_card">
+          <img
+            className="product_card_image"
+            src="https://picsum.photos/200/300"
+            alt={`${props.title} ${props.description}`}
+          />
 
-              <p className="product[index]_card_date">
-                <span>Posted </span>
-                {product[index].createdAt}
-              </p>
-              <p className="product[index]_card_title">
-                {product[index].title}
-              </p>
-              <p className="product[index]_card_size">{product[index].size}</p>
-              <p className="product[index]_card_description">
-                {product[index].description}
-              </p>
-              <p className="product[index]_card_price">
-                ${product[index].price}
-              </p>
-            </NavLink>
-          )
-      )}
+          <p className="product_card_date">
+            <span>Posted </span>
+            {props.createdAt}
+          </p>
+          <p className="product_card_title">{props.title}</p>
+          <p className="product_card_size">{props.size}</p>
+          <p className="product_card_description">{props.description}</p>
+          <p className="product_card_price">${props.price}</p>
+        </div>
+      </NavLink>
       <FavoriteBorder onClick={addFavorite} />
     </div>
   )
