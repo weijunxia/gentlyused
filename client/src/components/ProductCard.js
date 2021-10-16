@@ -38,6 +38,10 @@ function ProductCard(props) {
   //   )
   // }
   const addFavorite = async (userId, productId) => {
+    userId = props.userState.individualUser.id
+    console.log(userId)
+    productId = props.id
+    console.log(productId)
     await props.addToFavorite({
       favorite_user_id: userId,
       favorite_product_id: productId

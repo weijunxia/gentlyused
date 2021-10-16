@@ -52,9 +52,7 @@ export const PostRegisterUser = (data) => {
 export const PostLoginUser = (data) => {
   return async (dispatch) => {
     try {
-      console.log('data', data)
       const response = await SignInUser(data)
-      console.log('response', response)
       dispatch({ type: USER_LOGIN, payload: response })
       dispatch({ type: LOGIN_SUCCESS, payload: response })
     } catch (error) {

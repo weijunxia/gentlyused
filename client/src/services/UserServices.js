@@ -43,9 +43,9 @@ export const GetUsersStore = async (id) => {
 //     throw error
 //   }
 // }
-export const GetUserFavorites = async (id) => {
+export const GetUserFavorites = async (username) => {
   try {
-    const res = await Client.get(`/users/favorites/${id}`)
+    const res = await Client.get(`/users/favorites/${username}`)
     return res.data
   } catch (error) {
     throw error

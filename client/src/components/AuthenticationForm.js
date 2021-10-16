@@ -56,7 +56,6 @@ function AuthenticationForm(props) {
     await sleep(300)
     await props.createLogin(values)
     await props.loadUserProfile(values.email)
-    console.log(values)
   }
   Modal.setAppElement('body')
   const registrationModal = (

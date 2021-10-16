@@ -9,7 +9,7 @@ export const AddToFavorites = async ({
       favorite_user_id,
       favorite_product_id
     })
-    console.log(res)
+
     return res.data
   } catch (error) {
     throw error

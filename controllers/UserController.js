@@ -114,12 +114,11 @@ const AddOrRemoveUserFavoriteProduct = async (req, res) => {
 
 const GetUserProfileFavorites = async (req, res) => {
   try {
-    console.log(req.params.username)
     const userFavorites = await User.findOne({
       where: { username: req.params.username },
       include: [{ model: Product, as: 'user_favorite' }]
     })
-    res.send(userFavorites.dataValues.user_favorite)
+    res.send(userFavorites)
   } catch (error) {
     throw error
   }
