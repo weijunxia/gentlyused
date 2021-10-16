@@ -3,8 +3,8 @@ const { Op } = require('sequelize')
 
 const AddToFavorites = async (req, res) => {
   try {
-    const fav = Favorite.create({ ...req.body })
-    await res.send(fav)
+    const fav = await Favorite.create({ ...req.body })
+    return res.send(fav)
   } catch (error) {
     throw error
   }
@@ -12,10 +12,10 @@ const AddToFavorites = async (req, res) => {
 
 const RemoveFromFavorites = async (req, res) => {
   try {
-    await Favorite.destroy({ where: { product_id: req.params.product_id } })
+    await Favorite.destroy({ where: { id: req.params.id } })
     res.send({
       msg: 'Removed From Favorites',
-      payload: req.params.product_id,
+      payload: req.params.id,
       status: 'Ok'
     })
   } catch (error) {

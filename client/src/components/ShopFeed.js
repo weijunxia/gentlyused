@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import '../styles/shopfeed.css'
 import {
   LoadAllProducts,
-  LoadProductSearch
+  LoadProductById
 } from '../store/actions/ProductActions'
 import ProductCard from './ProductCard'
 
@@ -14,7 +14,8 @@ const mapStateToProps = ({ productState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAllProducts: () => dispatch(LoadAllProducts())
+    getAllProducts: () => dispatch(LoadAllProducts()),
+    loadProductById: (id) => dispatch(LoadProductById(id))
   }
 }
 
@@ -23,16 +24,20 @@ function ShopFeed(props) {
   const loadAllProducts = async () => {
     await props.getAllProducts()
   }
-
+  const loadProductsById = async () => {
+    props.productState.products.forEach(
+      async (product) => await props.loadProductById(product.id)
+    )
+  }
   useEffect(() => {
     loadAllProducts()
+    loadProductsById()
   }, [dispatch])
 
-  console.log(props.productState.products)
   return (
     <div className="shop_feed">
       {props.productState.products.map((product) => (
-        <ProductCard key={product.id} {...product} />
+        <ProductCard key={product.id} />
       ))}
     </div>
   )

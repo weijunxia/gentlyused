@@ -1,8 +1,15 @@
 import Client from '.'
 
-export const AddToFavorites = async (userId, productId) => {
+export const AddToFavorites = async ({
+  favorite_user_id,
+  favorite_product_id
+}) => {
   try {
-    const res = Client.post('/favorites', userId, productId)
+    const res = Client.post('/favorites', {
+      favorite_user_id,
+      favorite_product_id
+    })
+    console.log(res)
     return res.data
   } catch (error) {
     throw error
