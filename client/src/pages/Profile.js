@@ -1,15 +1,13 @@
-import React from 'react'
-import '../styles/profile.css'
+import React, { useEffect } from 'react'
+import { CheckUserSession } from '../store/actions/AuthActions'
 import {
-  PostRegisterUser,
-  PostLoginUser,
-  ToggleAuthenticationModal,
-  ToggleLoginModal,
-  ToggleRegisterModal,
-  CheckUserSession
-} from '../store/actions/AuthActions'
-import { LoadUserEmailProfile } from '../store/actions/UserActions'
+  LoadUsernameProfile,
+  LoadUserFavorites
+} from '../store/actions/UserActions'
+import { connect } from 'react-redux'
+import { LoadUserProfileProducts } from '../store/actions/UserActions'
 import ProductCard from '../components/ProductCard'
+import '../styles/profile.css'
 
 const mapStateToProps = ({ authenticationState, userState }) => {
   return { authenticationState, userState }
@@ -17,19 +15,34 @@ const mapStateToProps = ({ authenticationState, userState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createRegistration: (data) => dispatch(PostRegisterUser(data)),
-    createLogin: (data) => dispatch(PostLoginUser(data)),
     checkUserSession: (data) => dispatch(CheckUserSession(data)),
-    toggleModal: () => dispatch(ToggleAuthenticationModal())
+    loadUserProducts: (username) => dispatch(LoadUserProfileProducts(username))
   }
 }
 
-function Profile(profile) {
+function Profile(props) {
+  const token = localStorage.getItem('token')
+  const getUsersProducts = async (username) => {
+    username = props.userState.individualUser.username
+    await props.loadUserProducts(username)
+  }
+  let usersProducts = (
+    <div className="users_products_cards">
+      <h1>Your Favorites</h1>
+      {props.userState.individualUserProducts.map((product) => (
+        <ProductCard key={product.id} {...product} />
+      ))}
+    </div>
+  )
+  useEffect(() => {
+    props.checkUserSession(token)
+    getUsersProducts()
+  }, [])
   return (
     <div className="profile">
-      <div></div>
+      {props.userState.individualUserProducts ? usersProducts : null}
     </div>
   )
 }
 
-export default Profile
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

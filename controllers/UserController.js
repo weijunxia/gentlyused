@@ -50,7 +50,7 @@ const GetUserProfileProducts = async (req, res) => {
       where: { username: req.params.username },
       include: [{ model: Product, as: 'users_products' }]
     })
-    res.send(userAndProducts)
+    res.send(userAndProducts.dataValues.users_products)
   } catch (error) {
     throw error
   }
@@ -118,7 +118,7 @@ const GetUserProfileFavorites = async (req, res) => {
       where: { username: req.params.username },
       include: [{ model: Product, as: 'user_favorite' }]
     })
-    res.send(userFavorites)
+    res.send(userFavorites.dataValues.user_favorite)
   } catch (error) {
     throw error
   }

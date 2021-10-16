@@ -66,7 +66,7 @@ export const LoadUserProfileProducts = (id) => {
 export const LoadUserFavorites = (username) => {
   return async (dispatch) => {
     try {
-      const userFavorites = GetUserFavorites(username)
+      const userFavorites = await GetUserFavorites(username)
       dispatch({ type: GET_USER_PROFILE_FAVORITES, payload: userFavorites })
     } catch (error) {
       throw error

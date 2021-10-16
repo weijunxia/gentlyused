@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import {
-  PostRegisterUser,
-  PostLoginUser,
-  ToggleAuthenticationModal,
-  ToggleLoginModal,
-  ToggleRegisterModal,
-  CheckUserSession
-} from '../store/actions/AuthActions'
+import { CheckUserSession } from '../store/actions/AuthActions'
 import {
   LoadUsernameProfile,
   LoadUserFavorites
@@ -20,24 +13,35 @@ const mapStateToProps = ({ authenticationState, userState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createRegistration: (data) => dispatch(PostRegisterUser(data)),
-    createLogin: (data) => dispatch(PostLoginUser(data)),
     checkUserSession: (data) => dispatch(CheckUserSession(data)),
-    toggleModal: () => dispatch(ToggleAuthenticationModal()),
-    getUserFavorites: (data) => dispatch(LoadUserFavorites(data)),
+    getUserFavorites: (username) => dispatch(LoadUserFavorites(username)),
     loadUserProfile: (data) => dispatch(LoadUsernameProfile(data))
   }
 }
 function UserFavorites(props) {
   const token = localStorage.getItem('token')
+  const loadUserFavorites = async (username) => {
+    username = props.userState.individualUser.username
+    await props.getUserFavorites(username)
+  }
+
+  let usersFavorites = (
+    <div className="user_favorites_cards">
+      <h1>Your Favorites</h1>
+      {props.userState.individualUserFavorites.map((product) => (
+        <ProductCard key={product.id} {...product} />
+      ))}
+    </div>
+  )
 
   useEffect(() => {
     props.checkUserSession(token)
+    loadUserFavorites()
   }, [])
 
   return (
-    <div>
-      <div></div>
+    <div className="user_favorites_page">
+      {props.userState.individualUserFavorites ? usersFavorites : null}
     </div>
   )
 }

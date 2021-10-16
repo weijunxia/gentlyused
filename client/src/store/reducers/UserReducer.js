@@ -32,7 +32,6 @@ const UserReducer = (state = iState, action) => {
     case GET_USER_PROFILE_ORDERS:
       return { ...state, individualUserOrders: action.payload }
     case GET_USER_PROFILE_FAVORITES:
-      console.log(action.payload)
       return { ...state, individualUserFavorites: action.payload }
     // case REMOVE_FROM_FAVORITES:
     //   let userFavorite = state.individualUserFavorites

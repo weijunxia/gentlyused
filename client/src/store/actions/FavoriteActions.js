@@ -12,6 +12,7 @@ export const AddFavorite = ({ favorite_user_id, favorite_product_id }) => {
         favorite_user_id,
         favorite_product_id
       })
+      console.log(favorite)
       dispatch({ type: ADD_TO_FAVORITES, payload: favorite })
     } catch (error) {
       throw error

@@ -21,9 +21,9 @@ const mapStateToProps = ({ productState, userState, favoriteState }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: () => dispatch(LoadAllProducts()),
-    loadUserFavorites: (username) => dispatch(LoadUserFavorites(username)),
-    addToFavorite: ({ userId, productId }) =>
-      dispatch(AddFavorite({ userId, productId })),
+    // loadUserFavorites: (username) => dispatch(LoadUserFavorites(username)),
+    addToFavorite: ({ favorite_user_id, favorite_product_id }) =>
+      dispatch(AddFavorite({ favorite_user_id, favorite_product_id })),
     removeFavorite: (id) => dispatch(RemoveFavorite(id)),
     loadProductById: (id) => dispatch(LoadProductById(id))
   }
@@ -31,31 +31,22 @@ const mapDispatchToProps = (dispatch) => {
 
 function ProductCard(props) {
   const dispatch = useDispatch()
-
-  // const loadProductsById = async (id) => {
-  //   await props.productState.products.forEach(
-  //     async (product) => await props.loadProductById(product.id)
-  //   )
-  // }
   const addFavorite = async (userId, productId) => {
     userId = props.userState.individualUser.id
-    console.log(userId)
     productId = props.id
-    console.log(productId)
     await props.addToFavorite({
       favorite_user_id: userId,
       favorite_product_id: productId
     })
   }
-  const loadUserFavorites = async (username) => {
-    username = props.userState.individualUser.username
-    await props.loadUserFavorites(username)
-  }
+  // const loadUserFavorites = async (username) => {
+  //   username = props.userState.individualUser.username
+  //   await props.loadUserFavorites(username)
+  // }
 
   useEffect(() => {
-    loadUserFavorites()
-    // loadProductsById()
-  }, [dispatch])
+    // loadUserFavorites()
+  }, [])
 
   return (
     <div className="product_card">

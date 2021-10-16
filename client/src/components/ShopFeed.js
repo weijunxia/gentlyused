@@ -29,6 +29,7 @@ function ShopFeed(props) {
       async (product) => await props.loadProductById(product.id)
     )
   }
+
   useEffect(() => {
     loadAllProducts()
     loadProductsById()
