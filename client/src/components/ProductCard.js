@@ -8,10 +8,9 @@ import {
   UpdateUserProduct,
   DeleteUserProduct
 } from '../store/actions/ProductActions'
-import {
-  AddRemoveProductToUserFavorite,
-  LoadUserFavorites
-} from '../store/actions/UserActions'
+import { CheckUserSession } from '../store/actions/AuthActions'
+import { LoadUserFavorites } from '../store/actions/UserActions'
+import { AddFavorite, RemoveFavorite } from '../store/actions/FavoriteActions'
 import '../styles/productcard.css'
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
 
@@ -22,20 +21,18 @@ const mapStateToProps = ({ productState, userState }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: () => dispatch(LoadAllProducts()),
-    toggleFavoriteProduct: (username, productId) =>
-      dispatch(AddRemoveProductToUserFavorite(username, productId)),
-    loadUserFavorites: (username) => dispatch(LoadUserFavorites(username))
+    loadUserFavorites: (username) => dispatch(LoadUserFavorites(username)),
+    addFavorite: (userId, productId) => dispatch(AddFavorite(userId, productId))
   }
 }
 
 function ProductCard(props) {
-  const handleFavoriteToggle = async (username, productId) => {
-    username = props.userState.individualUser.username
-    console.log(username)
+  const handleFavoriteToggle = async (username, userId, productId) => {
+    userId = props.userState.individualUser.username
     productId = props.id
-    console.log(productId)
-    await props.toggleFavoriteProduct(username, productId)
+    username = props.userState.individualUser.username
     // await props.loadUserFavorites(username)
+    await props.addFavorite(userId, productId)
   }
 
   return (

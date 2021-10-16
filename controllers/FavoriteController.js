@@ -4,7 +4,6 @@ const { Op } = require('sequelize')
 const AddToFavorites = async (req, res) => {
   try {
     const fav = Favorite.create({ ...req.body })
-
     await res.send(fav)
   } catch (error) {
     throw error

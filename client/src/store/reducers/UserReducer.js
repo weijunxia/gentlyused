@@ -6,7 +6,8 @@ import {
   GET_USER_PROFILE_ORDERS,
   GET_USER_PROFILE_FAVORITES,
   DELETE_USER,
-  INSERT_REMOVE_PRODUCT_USER_FAVORITES
+  ADD_TO_FAVORITES,
+  REMOVE_FROM_FAVORITES
 } from '../types'
 
 const iState = {
@@ -30,10 +31,38 @@ const UserReducer = (state = iState, action) => {
       return { ...state, individualUserProducts: action.payload }
     case GET_USER_PROFILE_ORDERS:
       return { ...state, individualUserOrders: action.payload }
-    case INSERT_REMOVE_PRODUCT_USER_FAVORITES:
-      return { ...state, individualUser: action.payload }
     case GET_USER_PROFILE_FAVORITES:
       return { ...state, individualUserFavorites: action.payload }
+    // case REMOVE_FROM_FAVORITES:
+    //   let userFavorite = state.individualUserFavorites
+    //   userFavorite.filter((favorite) => {
+    //     if (favorite.id === action.payload.id) {
+    //       return userFavorite.splice(
+    //         userFavorite.indexOf(favorite),
+    //         1,
+    //         favorite
+    //       )
+    //     } else {
+    //       return userFavorite.splice(0, 0, favorite)
+    //     }
+    //   })
+    //   state.individualUserFavorites = userFavorite
+    //   return { ...state, individualUserFavorites: userFavorite }
+    // case ADD_TO_FAVORITES:
+    //   let userFavorites = state.individualUserFavorites
+    //   userFavorites.filter((favorite) => {
+    //     if (favorite.id === action.payload.id) {
+    //       return userFavorites.splice(
+    //         userFavorites.indexOf(favorite),
+    //         1,
+    //         favorite
+    //       )
+    //     } else {
+    //       return userFavorites.splice(0, 0, favorite)
+    //     }
+    //   })
+    //   state.individualUserFavorites = userFavorites
+    //   return { ...state, individualUserFavorites: userFavorites }
     case DELETE_USER:
       return { ...state, individualUser: action.payload }
     default:

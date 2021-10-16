@@ -16,9 +16,7 @@ import {
   GET_USER_PROFILE_PRODUCTS,
   GET_USER_PROFILE_ORDERS,
   GET_USER_PROFILE_FAVORITES,
-  DELETE_USER,
-  GET_PRODUCT_FAVORITES,
-  INSERT_REMOVE_PRODUCT_USER_FAVORITES
+  DELETE_USER
 } from '../types'
 
 export const LoadAllUsers = () => {
@@ -26,17 +24,6 @@ export const LoadAllUsers = () => {
     try {
       const users = await GetAllUsers()
       dispatch({ type: GET_ALL_USER_PROFILES, payload: users })
-    } catch (error) {
-      throw error
-    }
-  }
-}
-
-export const AddRemoveProductToUserFavorite = (username, productId) => {
-  return async (dispatch) => {
-    try {
-      const res = await AddOrRemoveUserFavorite(username, productId)
-      dispatch({ type: INSERT_REMOVE_PRODUCT_USER_FAVORITES, payload: res })
     } catch (error) {
       throw error
     }

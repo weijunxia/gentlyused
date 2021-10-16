@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Favorite, AccountCircle } from '@mui/icons-material'
-
 import AuthenticationForm from './AuthenticationForm'
 import '../styles/navbar.css'
 

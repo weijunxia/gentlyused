@@ -60,10 +60,7 @@ const GetProductDetails = async (req, res) => {
 const CreateProduct = async (req, res) => {
   try {
     console.log(req.body)
-    const product = await Product.create(
-      { ...req.body }
-      // { where: { id: req.params.user_id } }
-    )
+    const product = await Product.create({ ...req.body })
     res.send(product)
   } catch (error) {
     throw error
