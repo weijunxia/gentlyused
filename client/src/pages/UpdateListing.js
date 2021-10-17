@@ -28,16 +28,15 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function UpdateListing(props) {
-  const locationState = useLocation().state
   let updateProductFormData = {
-    title: locationState.title,
-    description: locationState.description,
-    price: locationState.price,
-    size: locationState.size
+    title: props.productState.individualProduct.title,
+    description: props.productState.individualProduct.description,
+    price: props.productState.individualProduct.price,
+    size: props.productState.individualProduct.size
   }
   const updateUsersProduct = async (values) => {
-    await props.updateProduct(locationState.id, values)
-    console.log(locationState.id, values)
+    await props.updateProduct(props.productState.individualProduct.id, values)
+
     updateProductFormData = {
       title: values.title,
       description: values.description,
@@ -47,7 +46,7 @@ function UpdateListing(props) {
     }
   }
   const checkUserSession = async (token) => {
-    const sessionStatus = await props.checkUserSession(token)
+    await props.checkUserSession(token)
   }
   useEffect(() => {
     const token = localStorage.getItem('token')
