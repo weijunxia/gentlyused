@@ -4,7 +4,8 @@ const { Op } = require('sequelize')
 const GetAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll({
-      include: { model: User }
+      include: { model: User },
+      order: [['id', 'DESC']]
     })
     res.send(products)
   } catch (error) {

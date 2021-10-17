@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import _ from 'lodash'
 import { SetAWSS3ImageUrl } from '../store/actions/ImageActions'
 import { CheckUserSession } from '../store/actions/AuthActions'
 import { PostProduct, LoadAllProducts } from '../store/actions/ProductActions'
 import { Form, Field } from 'react-final-form'
 import { connect, useDispatch } from 'react-redux'
-
-const mapStateToProps = ({ imageState, productState, authenticationState }) => {
-  return { imageState, productState, authenticationState }
+import { Button, TextField } from '@mui/material'
+import '../styles/sell.css'
+const mapStateToProps = ({
+  userState,
+  imageState,
+  productState,
+  authenticationState
+}) => {
+  return { userState, imageState, productState, authenticationState }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -19,21 +26,30 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function Sell(props) {
-  const [files, setFiles] = useState()
+  const [files, setFiles] = useState([])
   const [form, setForm] = useState({
     file_name: null
   })
   const [uploaded, setUploaded] = useState(false)
 
   function handleFormChange(e) {
-    setFiles(e.target.files[0])
+    let { allFiles } = e.target
+    let formData = new FormData()
+    _.forEach(allFiles, (file) => {
+      formData.append('files', file)
+    })
+
+    setFiles(formData)
   }
+
+  // let productCount = props.productState.products[0].id + 1
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     let formData = new FormData()
     formData.append('file_name', files)
-    console.log(formData)
+    formData.append('image_user_id', props.userState.individualUser.id)
+    // formData.append('image_product_id', productCount)
     const res = await props.setS3Url(formData)
     return res
   }
@@ -56,6 +72,7 @@ function Sell(props) {
     await props.postProduct(values)
     await props.getAllProducts()
   }
+
   useEffect(() => {
     props.getAllProducts()
     checkUserSession()
@@ -95,6 +112,7 @@ function Sell(props) {
               <div className="sell_page_input_field">
                 <label className="sell_page_label">Title</label>
                 <input
+                  className="sell_page_input"
                   {...input}
                   type="text"
                   placeholder="Jordan Brand × Dior"
@@ -109,7 +127,11 @@ function Sell(props) {
             {({ input, meta }) => (
               <div className="sell_page_input_field">
                 <label className="sell_page_label">Description</label>
-                <input {...input} placeholder="100% Authentic " />
+                <input
+                  className="sell_page_input"
+                  {...input}
+                  placeholder="100% Authentic "
+                />
                 {meta.error && meta.touched && <span>{meta.error}</span>}
               </div>
             )}
@@ -118,7 +140,12 @@ function Sell(props) {
             {({ input, meta }) => (
               <div className="sell_page_input_field">
                 <label className="sell_page_label">Size</label>
-                <input {...input} type="text" placeholder="US 9" />
+                <input
+                  className="sell_page_input"
+                  {...input}
+                  type="text"
+                  placeholder="US 9"
+                />
                 {meta.error && meta.touched && <span>{meta.error}</span>}
                 {meta.error && meta.touched && <span>{meta.error}</span>}
               </div>
@@ -128,7 +155,12 @@ function Sell(props) {
             {({ input, meta }) => (
               <div className="sell_page_input_field">
                 <label className="sell_page_label">Price $</label>
-                <input {...input} type="number" placeholder="5000" />
+                <input
+                  className="sell_page_input"
+                  {...input}
+                  type="number"
+                  placeholder="5000"
+                />
                 {meta.error && meta.touched && <span>{meta.error}</span>}
                 {meta.error && meta.touched && <span>{meta.error}</span>}
               </div>
@@ -144,13 +176,94 @@ function Sell(props) {
   )
 
   return (
-    <div className="sell">
-      <div>{sellPage}</div>
-      <form onSubmit={handleSubmit}>
-        <label>Upload Your Product Photos</label>
-        <input type="file" onChange={handleFormChange}></input>
-        <button>Upload</button>
+    <div className="sell_page">
+      <div className="sell_page_product_form">{sellPage}</div>
+      <form onSubmit={handleSubmit} className="sell_page_image_form">
+        <div>
+          <div className="sell_page_preview_area"></div>
+          <input
+            type="file"
+            accept="image/*"
+            className="sell_page_image_input"
+            onChange={handleFormChange}
+          ></input>
+          <div className="sell_page_input_overlay">+</div>
+        </div>
+        <div>
+          <div className="sell_page_preview_area"></div>
+          <input
+            type="file"
+            accept="image/*"
+            className="sell_page_image_input"
+            onChange={handleFormChange}
+          ></input>
+          <div className="sell_page_input_overlay">+</div>
+        </div>
+        <div>
+          <div className="sell_page_preview_area"></div>
+          <input
+            type="file"
+            accept="image/*"
+            className="sell_page_image_input"
+            onChange={handleFormChange}
+          ></input>
+          <div className="sell_page_input_overlay">+</div>
+        </div>
+        <div>
+          <div className="sell_page_preview_area"></div>
+          <input
+            type="file"
+            accept="image/*"
+            className="sell_page_image_input"
+            onChange={handleFormChange}
+          ></input>
+          <div className="sell_page_input_overlay">+</div>
+        </div>
+        <div>
+          <div className="sell_page_preview_area"></div>
+          <input
+            type="file"
+            accept="image/*"
+            className="sell_page_image_input"
+            onChange={handleFormChange}
+          ></input>
+          <div className="sell_page_input_overlay">+</div>
+        </div>
+        <div>
+          <div className="sell_page_preview_area"></div>
+          <input
+            type="file"
+            accept="image/*"
+            className="sell_page_image_input"
+            onChange={handleFormChange}
+          ></input>
+          <div className="sell_page_input_overlay">+</div>
+        </div>
+        <div>
+          <div className="sell_page_preview_area"></div>
+          <input
+            type="file"
+            accept="image/*"
+            className="sell_page_image_input"
+            onChange={handleFormChange}
+          ></input>
+          <div className="sell_page_input_overlay">+</div>
+        </div>
+        <div>
+          <div className="sell_page_preview_area"></div>
+          <input
+            type="file"
+            accept="image/*"
+            className="sell_page_image_input"
+            onChange={handleFormChange}
+          ></input>
+          <div className="sell_page_input_overlay">+</div>
+        </div>
+
+        <button onSubmit={handleSubmit}>Upload</button>
       </form>
+      <h2>Preview</h2>
+      <div className="sell_page_preview"></div>
     </div>
   )
 }

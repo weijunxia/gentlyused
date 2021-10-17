@@ -13,7 +13,6 @@ export const SetAWSS3ImageUrl = (data) => {
   return async (dispatch) => {
     try {
       const s3Url = await GetUploadUrl(data)
-      console.log(s3Url)
       dispatch({ type: SET_AWS_S3_IMAGE_URL, payload: s3Url })
     } catch (error) {
       throw error

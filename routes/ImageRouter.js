@@ -9,8 +9,8 @@ const upload = multer({ storage })
 Router.get('/all', controller.GetImage)
 Router.post(
   '/upload',
-  // middleware.stripToken,
-  // middleware.verifyToken,
+  middleware.stripToken,
+  middleware.verifyToken,
   upload.single('file_name'),
   controller.CreateImage
 )
