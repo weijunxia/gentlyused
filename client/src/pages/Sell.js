@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react'
-import {
-  UploadImageToS3,
-  SetAWSS3ImageUrl,
-  S3Response
-} from '../store/actions/ImageActions'
+import React, { useEffect, useState } from 'react'
+import { SetAWSS3ImageUrl } from '../store/actions/ImageActions'
 import { CheckUserSession } from '../store/actions/AuthActions'
 import { PostProduct, LoadAllProducts } from '../store/actions/ProductActions'
 import { Form, Field } from 'react-final-form'
@@ -15,9 +11,14 @@ const mapStateToProps = ({ imageState, productState, authenticationState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    uploadToS3: (data) => dispatch(UploadImageToS3(data)),
-    setS3Url: (data) => dispatch(SetAWSS3ImageUrl(data)),
-    setResponse: (data) => dispatch(S3Response(data)),
+    setS3Url: ({ image_user_id, image_product_id, file_name }) =>
+      dispatch(
+        SetAWSS3ImageUrl({
+          image_user_id,
+          image_product_id,
+          file_name
+        })
+      ),
     postProduct: (data) => dispatch(PostProduct(data)),
     getAllProducts: () => dispatch(LoadAllProducts()),
     checkUserSession: (data) => dispatch(CheckUserSession(data))
@@ -25,6 +26,29 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function Sell(props) {
+  const [files, setFiles] = useState()
+  const [form, setForm] = useState({
+    image_user_id: null,
+    image_product_id: null,
+    file_name: null
+  })
+  const [uploaded, setUploaded] = useState(false)
+
+  function handleFormChange(e) {
+    setFiles(e.target.files[0])
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    let formData = new FormData()
+
+    formData.append(form.image_user_id, '85cab45f-53e3-410a-8f1a-5e799e11595b')
+    formData.append(form.image_user_id, 2)
+    formData.append(form.file_name, files)
+    console.log(form)
+    const res = await props.setS3Url(formData)
+    return res
+  }
+
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
   const dispatch = useDispatch()
   let productFormData = { sold: false, product_user_id: '' }
@@ -45,6 +69,7 @@ function Sell(props) {
   }
   useEffect(() => {
     props.getAllProducts()
+    checkUserSession()
   }, [dispatch])
 
   const sellPage = (
@@ -95,20 +120,7 @@ function Sell(props) {
             {({ input, meta }) => (
               <div className="sell_page_input_field">
                 <label className="sell_page_label">Description</label>
-                <input
-                  {...input}
-                  placeholder="100% Authentic. Purchased from Dior boutique store in Costa Mesa. Won by ruffle.
-
-Comes with original packaging, shopping bag and receipt.
-
-42EU, more commonly known as 8.5US.
-
-New and never worn.
-
-Absolutely NO RETURN! NO TRADES! NO LOWBALL!!!
-
-Listed price is intended for profile exposure. No one will be buying these at 50k"
-                />
+                <input {...input} placeholder="100% Authentic " />
                 {meta.error && meta.touched && <span>{meta.error}</span>}
               </div>
             )}
@@ -145,6 +157,12 @@ Listed price is intended for profile exposure. No one will be buying these at 50
   return (
     <div className="sell">
       <div>{sellPage}</div>
+      <form onSubmit={handleSubmit}>
+        <label>Upload Your Product Photos</label>
+        <input type="file" onChange={handleFormChange}></input>
+        <button>Upload</button>
+      </form>
+      {/* {uploaded ? <img src={image} alt="hello uwu" /> : null} */}
     </div>
   )
 }

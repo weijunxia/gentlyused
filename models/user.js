@@ -19,11 +19,13 @@ module.exports = (sequelize, DataTypes) => {
         as: 'user_favorite',
         foreignKey: 'favorite_user_id'
       })
+      User.belongsToMany(models.Product, {
+        through: models.Image,
+        as: 'user_images',
+        foreignKey: 'image_user_id'
+      })
       User.hasMany(models.Order, {
         foreignKey: 'order_user_id'
-      })
-      User.hasMany(models.Image, {
-        foreignKey: 'image_user_id'
       })
     }
   }

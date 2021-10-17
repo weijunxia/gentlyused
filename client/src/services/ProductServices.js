@@ -27,7 +27,6 @@ export const GetProductSearch = async (query) => {
   }
 }
 
-export const GetProductFavorites = async () => {}
 export const CreateProduct = async (data) => {
   try {
     const res = await Client.post(`/products`, data)

@@ -1,21 +1,18 @@
-import { S3_RESPONSE, SET_AWS_S3_IMAGE_URL } from '../types'
+import { SET_AWS_S3_IMAGE_URL, GET_ALL_IMAGES, DELETE_IMAGE } from '../types'
 
 const iState = {
-  msg: '',
-  type: '',
-  awsS3ImageUrl: '',
-  images: []
+  allImages: [],
+  awsS3ImageUrl: ''
 }
 
 const ImageReducer = (state = iState, action) => {
   switch (action.type) {
     case SET_AWS_S3_IMAGE_URL:
       return { ...state, awsS3ImageUrl: action.payload }
-    case S3_RESPONSE:
-      return {
-        ...state,
-        ...{ msg: action.data._response, type: action.data._type }
-      }
+    case GET_ALL_IMAGES:
+      return { ...state, allImages: action.payload }
+    case DELETE_IMAGE:
+      return { ...state, allImages: action.payload }
     default:
       return state
   }

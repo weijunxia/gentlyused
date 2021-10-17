@@ -1,16 +1,36 @@
-import axios from 'axios'
 import Client from '.'
 
-export const GetUploadUrl = async (data) => {
-  const res = await Client.post('/image', data)
-  return res
+export const GetUploadUrl = async ({
+  image_user_id,
+  image_product_id,
+  file_name
+}) => {
+  try {
+    const res = await Client.post('/images', {
+      image_user_id,
+      image_product_id,
+      file_name
+    })
+    return res
+  } catch (error) {
+    throw error
+  }
 }
 
-export const UploadToS3 = async (url, data) => {
-  const res = axios.put(url, data, {
-    header: {
-      'Content-Type': 'multipart/form-data'
-    }
-  })
-  return res
+export const DeleteImage = async (id) => {
+  try {
+    const res = await Client.delete(`/images/${id}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const GetAllImages = async () => {
+  try {
+    const res = Client.get(`/images`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
 }
