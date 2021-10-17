@@ -1,5 +1,4 @@
 import Client from '.'
-
 export const GetAllProducts = async () => {
   try {
     const res = await Client.get('/products')
@@ -27,7 +26,7 @@ export const GetProductById = async (id) => {
     throw error
   }
 }
-export const GetFavoritesForProduct = async (product_id, username) => {
+export const GetFavoritesForProduct = async (product_id) => {
   try {
     const res = await Client.get(`/products/favorite/${product_id}`)
     return res.data

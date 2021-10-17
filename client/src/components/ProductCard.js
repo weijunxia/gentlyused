@@ -21,7 +21,6 @@ const mapStateToProps = ({ productState, userState, favoriteState }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: () => dispatch(LoadAllProducts()),
-    // loadUserFavorites: (username) => dispatch(LoadUserFavorites(username)),
     addToFavorite: ({ favorite_user_id, favorite_product_id }) =>
       dispatch(AddFavorite({ favorite_user_id, favorite_product_id })),
     removeFavorite: (id) => dispatch(RemoveFavorite(id)),
@@ -40,14 +39,22 @@ function ProductCard(props) {
       favorite_product_id: productId
     })
   }
-  // const loadUserFavorites = async (username) => {
-  //   username = props.userState.individualUser.username
-  //   await props.loadUserFavorites(username)
-  // }
-  console.log(props.userState.individualUser.username)
-  useEffect(async () => {
-    await props.loadUserFavorites('wei')
-  }, [dispatch])
+  const removeFromFavorite = async (userId, productId) => {
+    userId = props.userState.individualUser.id
+    productId = props.id
+  }
+  let removeFromUserFavorite = (
+    <>
+      <Favorite onClick={removeFromFavorite} />
+    </>
+  )
+  let addToUserFavorite = (
+    <>
+      <FavoriteBorder onClick={addFavorite} />
+    </>
+  )
+
+  useEffect(() => {}, [dispatch])
 
   return (
     <div className="product_card">
@@ -69,7 +76,20 @@ function ProductCard(props) {
           <p className="product_card_price">${props.price}</p>
         </div>
       </NavLink>
-      <FavoriteBorder onClick={addFavorite} />
+      {/* {props.productState.productsAndFavorites.filter((product) => {
+        if (
+          product.id === props.id &&
+          product.product_favorite.filter(
+            (favorite) =>
+              favorite.favorite_user_id === props.userState.individualUser.id
+          )
+        ) {
+          return removeFromUserFavorite
+        } else {
+          return addToUserFavorite
+        }
+      })}
+      {props.productState.productsAndFavorites.} */}
     </div>
   )
 }

@@ -10,7 +10,7 @@ import UpdateListing from './pages/UpdateListing'
 import Profile from './pages/Profile'
 import UserFavorites from './components/UserFavorites'
 import { connect, useDispatch } from 'react-redux'
-import { CheckUserSession } from './store/actions/AuthActions'
+// import { CheckUserSession } from './store/actions/AuthActions'
 
 const mapStateToProps = ({ authenticationState }) => {
   return { authenticationState }
@@ -18,19 +18,18 @@ const mapStateToProps = ({ authenticationState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkUserSession: (token) => dispatch(CheckUserSession(token))
+    // checkUserSession: (token) => dispatch(CheckUserSession(token))
   }
 }
 
 function App(props) {
-  const dispatch = useDispatch()
-  let token = localStorage.getItem('token')
-  const checkUsersSession = async (param) => {
-    await props.checkUserSession(param)
-  }
-  useEffect(() => {
-    checkUsersSession(token)
-  }, [dispatch])
+  // let token = localStorage.getItem('token')
+  // const checkUsersSession = async (param) => {
+  //   await props.checkUserSession(param)
+  // }
+  // useEffect(() => {
+  //   checkUsersSession(token)
+  // }, [])
   return (
     <div className="App">
       <div style={{ display: 'flex', flexDirection: 'column' }}>

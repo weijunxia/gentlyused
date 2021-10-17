@@ -35,7 +35,9 @@ export const GetAProductsFavorites = (product_id) => {
     try {
       const usersFavorites = await GetFavoritesForProduct(product_id)
       dispatch({ type: GET_PRODUCT_FAVORITES, payload: usersFavorites })
-    } catch (error) {}
+    } catch (error) {
+      throw error
+    }
   }
 }
 export const LoadAllProducts = () => {

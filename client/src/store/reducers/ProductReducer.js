@@ -23,7 +23,6 @@ const ProductReducer = (state = iState, action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return { ...state, products: action.payload }
-
     case GET_ALL_PRODUCTS_AND_FAVORITES:
       return { ...state, productsAndFavorites: action.payload }
     case GET_PRODUCT_BY_ID:

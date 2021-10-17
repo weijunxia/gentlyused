@@ -48,7 +48,8 @@ function Billing(props) {
         line2: null
       },
       first_name: values.first_name,
-      last_name: values.last_name
+      last_name: values.last_name,
+      email: values.email
     }
   }
 
@@ -61,7 +62,6 @@ function Billing(props) {
   }
 
   const afterPaymentSuccess = (paymentIntent) => {
-    dispatch(clearCart())
     const { amount, id } = paymentIntent
     history.push(`/success?amount=${amount}&id=${id}`, { from: 'checkout' })
   }
@@ -76,10 +76,51 @@ function Billing(props) {
     try {
       const {
         data: { client_secret: clientSecret }
-      } = await props.createStripePayment()
-    } catch (error) {}
+      } = await props.createStripePayment({ values })
+      const cardPayment = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardNumberElement),
+          billing_details: billingDetails(values)
+        }
+      })
+      if (cardPayment.error) {
+        setError(cardPayment.error.message)
+      } else if (cardPayment.paymentIntent) {
+        afterPaymentSuccess(cardPayment.paymentIntent)
+      }
+    } catch (error) {
+      setError(error.message)
+    } finally {
+      setSubmitting(false)
+    }
   }
-  return <Form></Form>
+  let initValues = {
+    first_name: '',
+    last_name: '',
+    email: ''
+  }
+  return (
+    <Form
+      onSubmit={onSubmit}
+      initialValues={initValues}
+      validate={(values) => {
+        const errors = {}
+        if (!values.first_name) {
+          errors.first_name = 'First Name Required!'
+        }
+        if (!values.last_name) {
+          errors.last_name = 'Last Name Required'
+        }
+        if (!values.email) {
+          errors.email = 'Email Required!'
+        }
+        if (!values.address) {
+          errors.address = 'Address Required!'
+        }
+        return error
+      }}
+    ></Form>
+  )
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Billing)
