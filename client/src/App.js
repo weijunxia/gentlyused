@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './styles/App.css'
 import NavBar from './components/NavBar'
 import Home from './pages/Home'
@@ -9,8 +9,28 @@ import ProductPage from './pages/ProductPage'
 import UpdateListing from './pages/UpdateListing'
 import Profile from './pages/Profile'
 import UserFavorites from './components/UserFavorites'
+import { connect, useDispatch } from 'react-redux'
+import { CheckUserSession } from './store/actions/AuthActions'
 
-function App() {
+const mapStateToProps = ({ authenticationState }) => {
+  return { authenticationState }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    checkUserSession: (token) => dispatch(CheckUserSession(token))
+  }
+}
+
+function App(props) {
+  const dispatch = useDispatch()
+  let token = localStorage.getItem('token')
+  const checkUsersSession = async (param) => {
+    await props.checkUserSession(param)
+  }
+  useEffect(() => {
+    checkUsersSession(token)
+  }, [dispatch])
   return (
     <div className="App">
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -29,4 +49,4 @@ function App() {
   )
 }
 
-export default App
+export default connect(mapStateToProps, mapDispatchToProps)(App)

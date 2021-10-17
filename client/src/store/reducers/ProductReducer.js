@@ -2,6 +2,7 @@ const {
   GET_ALL_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_FAVORITES,
+  GET_ALL_PRODUCTS_AND_FAVORITES,
   CREATE_PRODUCT,
   GET_PRODUCT_SEARCH,
   UPDATE_PRODUCT,
@@ -23,7 +24,7 @@ const ProductReducer = (state = iState, action) => {
     case GET_ALL_PRODUCTS:
       return { ...state, products: action.payload }
 
-    case GET_PRODUCT_FAVORITES:
+    case GET_ALL_PRODUCTS_AND_FAVORITES:
       return { ...state, productsAndFavorites: action.payload }
     case GET_PRODUCT_BY_ID:
       return { ...state, individualProduct: action.payload }
@@ -37,6 +38,8 @@ const ProductReducer = (state = iState, action) => {
         individualProduct: action.payload,
         products: action.payload
       }
+    case GET_PRODUCT_FAVORITES:
+      return { ...state, individualProduct: action.payload }
     case DELETE_PRODUCT:
       return { ...state, products: action.payload }
     case TOGGLE_PRODUCT_DELETE_MODAL:
