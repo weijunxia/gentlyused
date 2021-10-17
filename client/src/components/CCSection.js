@@ -21,7 +21,7 @@ const CARD_ELEMENT_OPTIONS = {
     }
   }
 }
-function CCSection({ handleChange, isSubmitting, error, stripe }) {
+function CCSection({ handleChange, setSubmitting, error, stripe }) {
   const total = useSelector((state) => state.total)
   return (
     <div>
@@ -46,8 +46,8 @@ function CCSection({ handleChange, isSubmitting, error, stripe }) {
           options={CARD_ELEMENT_OPTIONS}
         />
       </label>
-      <button type="submit" disabled={!stripe || isSubmitting}>
-        {isSubmitting ? 'Submitting...' : `Pay ${total}`}
+      <button type="submit" disabled={!stripe || setSubmitting}>
+        {setSubmitting ? 'Submitting...' : `Pay ${total}`}
       </button>
       {error && <span className="error">{error}</span>}
     </div>

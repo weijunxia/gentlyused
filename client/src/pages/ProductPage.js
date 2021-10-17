@@ -15,7 +15,7 @@ import { PostOrder, ToggleOrderModal } from '../store/actions/OrderActions'
 import '../styles/productpage.css'
 import { ToggleStripeContainer } from '../store/actions/StripeActions'
 import StripeContainer from '../components/StripeContainer'
-
+import Billing from '../components/Billing'
 const mapStateToProps = ({
   authenticationState,
   productState,
@@ -105,11 +105,7 @@ function ProductPage(props) {
       </div>
       <div className="purchase_item_wrapper_left">
         <div className="purchase_modal_order_form">
-          {props.stripeState.stripeContainerToggle ? (
-            <StripeContainer />
-          ) : (
-            <></>
-          )}
+          {props.stripeState.stripeContainerToggle ? <Billing /> : <></>}
         </div>
       </div>
     </Modal>

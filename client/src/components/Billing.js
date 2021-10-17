@@ -119,7 +119,104 @@ function Billing(props) {
         }
         return error
       }}
-    ></Form>
+      render={({ setSubmitting, submitError, onSubmit, values, pristine }) => (
+        <form
+          className="billing_form"
+          onSubmit={(e) => {
+            e.preventDefault()
+            onSubmit()
+          }}
+        >
+          <Field name="first_name">
+            {({ input, meta }) => (
+              <div className="billing_form_field">
+                <label className="billing_form_label">First Name</label>
+                <input
+                  className="billing_form_input"
+                  {...input}
+                  type="text"
+                  placeholder="John"
+                />
+                {(meta.error || meta.submitError) && meta.touched && (
+                  <span>{meta.error || meta.submitError}</span>
+                )}
+              </div>
+            )}
+          </Field>
+          <Field name="last_name">
+            {({ input, meta }) => (
+              <div className="billing_form_field">
+                <label className="billing_form_label">Last Name</label>
+                <input
+                  className="billing_form_input"
+                  {...input}
+                  type="text"
+                  placeholder="Doe"
+                />
+                {(meta.error || meta.submitError) && meta.touched && (
+                  <span>{meta.error || meta.submitError}</span>
+                )}
+              </div>
+            )}
+          </Field>
+          <Field name="email">
+            {({ input, meta }) => (
+              <div className="billing_form_field">
+                <label className="billing_form_label">Email</label>
+                <input
+                  className="billing_form_input"
+                  {...input}
+                  type="text"
+                  placeholder="JohnDoe@mail.com"
+                />
+                {(meta.error || meta.submitError) && meta.touched && (
+                  <span>{meta.error || meta.submitError}</span>
+                )}
+              </div>
+            )}
+          </Field>
+          <Field name="address">
+            {({ input, meta }) => (
+              <div className="billing_form_field">
+                <label className="billing_form_label">Address</label>
+                <input
+                  className="billing_form_input"
+                  {...input}
+                  type="text"
+                  placeholder="P. Sherman 42 Wallaby Way"
+                />
+                {(meta.error || meta.submitError) && meta.touched && (
+                  <span>{meta.error || meta.submitError}</span>
+                )}
+              </div>
+            )}
+          </Field>
+          <Field name="zipcode">
+            {({ input, meta }) => (
+              <div className="billing_form_field">
+                <label className="billing_form_label">Zip Code</label>
+                <input
+                  className="billing_form_input"
+                  {...input}
+                  type="text"
+                  placeholder="42 Wallaby Way"
+                />
+                {(meta.error || meta.submitError) && meta.touched && (
+                  <span>{meta.error || meta.submitError}</span>
+                )}
+              </div>
+            )}
+          </Field>
+          <div>
+            <CCSection
+              stripe={stripe}
+              setSubmitting={setSubmitting}
+              handleChange={handleElementChange}
+            />
+          </div>
+        </form>
+      )}
+    />
   )
 }
 
