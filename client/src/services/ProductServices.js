@@ -9,6 +9,15 @@ export const GetAllProducts = async () => {
   }
 }
 
+export const GetAllProductsAndFavorites = async () => {
+  try {
+    const res = await Client.get('/products/all/favorites')
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const GetProductById = async (id) => {
   try {
     const res = await Client.get(`/products/${id}`)

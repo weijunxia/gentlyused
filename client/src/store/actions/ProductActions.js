@@ -1,10 +1,11 @@
 import {
   GetAllProducts,
+  GetAllProductsAndFavorites,
   GetProductById,
   GetProductSearch,
   CreateProduct,
   UpdateProduct,
-  GetProductFavorites,
+  GetFavoritesForProduct,
   DeleteProduct
 } from '../../services/ProductServices'
 
@@ -16,7 +17,8 @@ const {
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
   CREATE_PRODUCT,
-  TOGGLE_PRODUCT_DELETE_MODAL
+  TOGGLE_PRODUCT_DELETE_MODAL,
+  GET_ALL_PRODUCTS_AND_FAVORITES
 } = require('../types')
 
 export const ToggleProductDeleteModal = () => {
@@ -28,7 +30,14 @@ export const ToggleProductDeleteModal = () => {
     }
   }
 }
-
+export const GetAProductsFavorites = (product_id) => {
+  return async (dispatch) => {
+    try {
+      const usersFavorites = await GetFavoritesForProduct(product_id)
+      dispatch({ type: GET_PRODUCT_FAVORITES, payload: usersFavorites })
+    } catch (error) {}
+  }
+}
 export const LoadAllProducts = () => {
   return async (dispatch) => {
     try {
@@ -39,7 +48,19 @@ export const LoadAllProducts = () => {
     }
   }
 }
-
+export const LoadAllProductsAndFavorites = () => {
+  return async (dispatch) => {
+    try {
+      const productsAndFavorites = await GetAllProductsAndFavorites()
+      dispatch({
+        type: GET_ALL_PRODUCTS_AND_FAVORITES,
+        payload: productsAndFavorites
+      })
+    } catch (error) {
+      throw error
+    }
+  }
+}
 export const LoadProductById = (id) => {
   return async (dispatch) => {
     try {

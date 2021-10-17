@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import '../styles/shopfeed.css'
 import {
-  LoadAllProducts,
+  LoadAllProductsAndFavorites,
   LoadProductById
 } from '../store/actions/ProductActions'
 import ProductCard from './ProductCard'
@@ -13,7 +13,7 @@ const mapStateToProps = ({ productState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAllProducts: () => dispatch(LoadAllProducts()),
+    getAllProductsFavorites: () => dispatch(LoadAllProductsAndFavorites()),
     loadProductById: (id) => dispatch(LoadProductById(id))
   }
 }
@@ -21,8 +21,8 @@ const mapDispatchToProps = (dispatch) => {
 function ShopFeed(props) {
   const [count, setCount] = useState(0)
   const dispatch = useDispatch()
-  const loadAllProducts = async () => {
-    await props.getAllProducts()
+  const loadAllProductsFavorites = async () => {
+    await props.getAllProductsFavorites()
   }
   const buttonCounter = () => {
     if (count > 0 && count < 6) {
@@ -33,9 +33,8 @@ function ShopFeed(props) {
     }
   }
   useEffect(() => {
-    // loadAllProducts()
-    props.loadProductById(count)
-  }, [count])
+    loadAllProductsFavorites()
+  }, [dispatch])
 
   return (
     <div className="shop_feed">

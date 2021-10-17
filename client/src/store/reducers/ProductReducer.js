@@ -11,7 +11,8 @@ const {
 
 const iState = {
   products: [],
-  individualProduct: {},
+  productsAndFavorites: [],
+  individualProduct: [],
   productSearch: [],
   productsLoading: '',
   productDeleteModal: false
@@ -21,6 +22,9 @@ const ProductReducer = (state = iState, action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return { ...state, products: action.payload }
+
+    case GET_PRODUCT_FAVORITES:
+      return { ...state, productsAndFavorites: action.payload }
     case GET_PRODUCT_BY_ID:
       return { ...state, individualProduct: action.payload }
     case GET_PRODUCT_SEARCH:
