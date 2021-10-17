@@ -11,14 +11,7 @@ const mapStateToProps = ({ imageState, productState, authenticationState }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setS3Url: ({ image_user_id, image_product_id, file_name }) =>
-      dispatch(
-        SetAWSS3ImageUrl({
-          image_user_id,
-          image_product_id,
-          file_name
-        })
-      ),
+    setS3Url: (data) => dispatch(SetAWSS3ImageUrl(data)),
     postProduct: (data) => dispatch(PostProduct(data)),
     getAllProducts: () => dispatch(LoadAllProducts()),
     checkUserSession: (data) => dispatch(CheckUserSession(data))
@@ -28,8 +21,6 @@ const mapDispatchToProps = (dispatch) => {
 function Sell(props) {
   const [files, setFiles] = useState()
   const [form, setForm] = useState({
-    image_user_id: null,
-    image_product_id: null,
     file_name: null
   })
   const [uploaded, setUploaded] = useState(false)
@@ -37,14 +28,12 @@ function Sell(props) {
   function handleFormChange(e) {
     setFiles(e.target.files[0])
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     let formData = new FormData()
-
-    formData.append(form.image_user_id, '85cab45f-53e3-410a-8f1a-5e799e11595b')
-    formData.append(form.image_user_id, 2)
-    formData.append(form.file_name, files)
-    console.log(form)
+    formData.append('file_name', files)
+    console.log(formData)
     const res = await props.setS3Url(formData)
     return res
   }
@@ -162,7 +151,6 @@ function Sell(props) {
         <input type="file" onChange={handleFormChange}></input>
         <button>Upload</button>
       </form>
-      {/* {uploaded ? <img src={image} alt="hello uwu" /> : null} */}
     </div>
   )
 }

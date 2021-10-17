@@ -24,11 +24,10 @@ const GetImage = async (req, res) => {
 const CreateImage = async (req, res) => {
   try {
     let file = req.file
-    console.log('req.file', req)
-    let productId = req.body.image_product_id
-    let fileName = `${new Date().getTime()}-${productId}${path.extname(
-      file.originalname
-    )}`
+    // let productId = req.body.image_product_id
+    const image = await Image.build({ ...req.body })
+    image.validate()
+    let fileName = `${new Date().getTime()}-${path.extname(file.originalname)}`
     let fileParams = {
       Key: `${fileName}`,
       Body: file.buffer,
@@ -39,10 +38,12 @@ const CreateImage = async (req, res) => {
       ContentType: file.mimetype
     }
     await uploader.upload(fileParams)
-    const image = await Image.create({
-      ...req.body,
-      file_name: `https://d1p3fszk6htgk4.cloudfront.net/${fileName}`
-    })
+    // const image = await Image.create({
+    //   ...req.body,
+    //   file_name: `https://d1p3fszk6htgk4.cloudfront.net/${fileName}`
+    // })
+    image.file_name = `https://d1p3fszk6htgk4.cloudfront.net/${fileName}`
+    image.save()
     res.send(image)
   } catch (error) {
     throw error

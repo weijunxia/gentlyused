@@ -6,17 +6,17 @@ const multer = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
 
-Router.get('', controller.GetImage)
+Router.get('/all', controller.GetImage)
 Router.post(
-  '',
-  upload.single('file'),
-  middleware.stripToken,
-  middleware.verifyToken,
+  '/upload',
+  // middleware.stripToken,
+  // middleware.verifyToken,
+  upload.single('file_name'),
   controller.CreateImage
 )
 
 Router.delete(
-  '/:id',
+  '/delete/:id',
   middleware.stripToken,
   middleware.verifyToken,
   controller.DeleteImage

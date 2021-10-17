@@ -9,18 +9,11 @@ const {
   DELETE_IMAGE
 } = require('../types')
 
-export const SetAWSS3ImageUrl = ({
-  image_user_id,
-  image_product_id,
-  file_name
-}) => {
+export const SetAWSS3ImageUrl = (data) => {
   return async (dispatch) => {
     try {
-      const s3Url = await GetUploadUrl({
-        image_user_id,
-        image_product_id,
-        file_name
-      })
+      const s3Url = await GetUploadUrl(data)
+      console.log(s3Url)
       dispatch({ type: SET_AWS_S3_IMAGE_URL, payload: s3Url })
     } catch (error) {
       throw error
@@ -44,8 +37,6 @@ export const DeleteImageById = (id) => {
     try {
       const deleted = await DeleteImage(id)
       dispatch({ type: DELETE_IMAGE, payload: deleted })
-    } catch (error) {
-      throw error
-    }
+    } catch (error) {}
   }
 }

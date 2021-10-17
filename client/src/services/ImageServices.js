@@ -1,15 +1,11 @@
 import Client from '.'
 
-export const GetUploadUrl = async ({
-  image_user_id,
-  image_product_id,
-  file_name
-}) => {
+export const GetUploadUrl = async (data) => {
   try {
-    const res = await Client.post('/images', {
-      image_user_id,
-      image_product_id,
-      file_name
+    const res = await Client.post('/images/upload', data, {
+      header: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
     return res
   } catch (error) {
@@ -19,7 +15,7 @@ export const GetUploadUrl = async ({
 
 export const DeleteImage = async (id) => {
   try {
-    const res = await Client.delete(`/images/${id}`)
+    const res = await Client.delete(`/images/delete/${id}`)
     return res.data
   } catch (error) {
     throw error
@@ -28,7 +24,7 @@ export const DeleteImage = async (id) => {
 
 export const GetAllImages = async () => {
   try {
-    const res = Client.get(`/images`)
+    const res = Client.get(`/images/all`)
     return res.data
   } catch (error) {
     throw error
