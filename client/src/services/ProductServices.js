@@ -12,12 +12,20 @@ export const GetAllProducts = async () => {
 export const GetProductById = async (id) => {
   try {
     const res = await Client.get(`/products/${id}`)
+    console.log('res', res)
     return res.data
   } catch (error) {
     throw error
   }
 }
-
+export const GetFavoritesForProduct = async (product_id, username) => {
+  try {
+    const res = await Client.get(`/products/favorite/${product_id}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
 export const GetProductSearch = async (query) => {
   try {
     const res = await Client.get(`/products/search/${query}`)

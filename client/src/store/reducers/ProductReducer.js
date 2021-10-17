@@ -11,7 +11,7 @@ const {
 
 const iState = {
   products: [],
-  individualProduct: [],
+  individualProduct: {},
   productSearch: [],
   productsLoading: '',
   productDeleteModal: false

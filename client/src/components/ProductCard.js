@@ -25,7 +25,8 @@ const mapDispatchToProps = (dispatch) => {
     addToFavorite: ({ favorite_user_id, favorite_product_id }) =>
       dispatch(AddFavorite({ favorite_user_id, favorite_product_id })),
     removeFavorite: (id) => dispatch(RemoveFavorite(id)),
-    loadProductById: (id) => dispatch(LoadProductById(id))
+    loadProductById: (id) => dispatch(LoadProductById(id)),
+    loadUserFavorites: (username) => dispatch(LoadUserFavorites(username))
   }
 }
 
@@ -43,10 +44,10 @@ function ProductCard(props) {
   //   username = props.userState.individualUser.username
   //   await props.loadUserFavorites(username)
   // }
-
-  useEffect(() => {
-    // loadUserFavorites()
-  }, [])
+  console.log(props.userState.individualUser.username)
+  useEffect(async () => {
+    await props.loadUserFavorites('wei')
+  }, [dispatch])
 
   return (
     <div className="product_card">

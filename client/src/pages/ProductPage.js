@@ -13,14 +13,23 @@ import {
 import { LoadUsernameProfile } from '../store/actions/UserActions'
 import { PostOrder, ToggleOrderModal } from '../store/actions/OrderActions'
 import '../styles/productpage.css'
+import { ToggleStripeContainer } from '../store/actions/StripeActions'
+import StripeContainer from '../components/StripeContainer'
 
 const mapStateToProps = ({
   authenticationState,
   productState,
   userState,
-  orderState
+  orderState,
+  stripeState
 }) => {
-  return { authenticationState, productState, userState, orderState }
+  return {
+    authenticationState,
+    productState,
+    userState,
+    orderState,
+    stripeState
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -32,15 +41,16 @@ const mapDispatchToProps = (dispatch) => {
     loadUserProfile: (username) => dispatch(LoadUsernameProfile(username)),
     createOrder: (data) => dispatch(PostOrder(data)),
     toggleOrderModal: () => dispatch(ToggleOrderModal()),
-    LoadProductById: (id) => dispatch(LoadProductById(id))
+    LoadProductById: (id) => dispatch(LoadProductById(id)),
+    toggleStripeContainer: () => dispatch(ToggleStripeContainer())
   }
 }
 
 function ProductPage(props) {
   const dispatch = useDispatch()
-
-  const location = useLocation()
-
+  const toggleStripesContainer = async () => {
+    await props.toggleStripeContainer()
+  }
   const loadUser = async (data) => {
     await props.loadUserProfile(data)
   }
@@ -91,20 +101,31 @@ function ProductPage(props) {
         <p>{props.productState.individualProduct.description}</p>
         <p>Size: {props.productState.individualProduct.size}</p>
         <p>Total: ${props.productState.individualProduct.price}</p>
-        <button>Purchase</button>
+        <button onClick={toggleStripesContainer}>Purchase</button>
       </div>
       <div className="purchase_item_wrapper_left">
-        <div className="purchase_modal_order_form"></div>
+        <div className="purchase_modal_order_form">
+          {props.stripeState.stripeContainerToggle ? (
+            <StripeContainer />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </Modal>
   )
+  const loadProductById = async (id) => {
+    await props.LoadProductById(id)
+  }
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     checkUserSession(token)
     // props.loadAllProducts()
-    props.LoadProductById(props.match.params.id)
-  }, [dispatch])
+    return props.location.pathname !== '/'
+      ? loadProductById(props.match.params.id)
+      : null
+  }, [props.history.location.pathname])
 
   return (
     <div className="product_page">

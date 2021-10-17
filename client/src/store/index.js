@@ -7,6 +7,7 @@ import UserReducer from './reducers/UserReducer'
 import ImageReducer from './reducers/ImageReducer'
 import OrderReducer from './reducers/OrderReducer'
 import FavoriteReducer from './reducers/FavoriteReducer'
+import StripeReducer from './reducers/StripeReducer'
 
 const store = createStore(
   combineReducers({
@@ -15,7 +16,8 @@ const store = createStore(
     authenticationState: AuthReducer,
     imageState: ImageReducer,
     orderState: OrderReducer,
-    favoriteState: FavoriteReducer
+    favoriteState: FavoriteReducer,
+    stripeState: StripeReducer
   }),
   composeWithDevTools(applyMiddleware(thunk))
 )

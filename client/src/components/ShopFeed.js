@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect, useDispatch } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 import '../styles/shopfeed.css'
 import {
   LoadAllProducts,
@@ -20,23 +19,28 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function ShopFeed(props) {
+  const [count, setCount] = useState(0)
   const dispatch = useDispatch()
   const loadAllProducts = async () => {
     await props.getAllProducts()
   }
-  const loadProductsById = async () => {
-    props.productState.products.forEach(
-      async (product) => await props.loadProductById(product.id)
-    )
+  const buttonCounter = () => {
+    if (count > 0 && count < 6) {
+      setCount(count + 1)
+    }
+    if (count === 6) {
+      setCount(0)
+    }
   }
-
   useEffect(() => {
-    loadAllProducts()
-    loadProductsById()
-  }, [dispatch])
+    // loadAllProducts()
+    props.loadProductById(count)
+  }, [count])
 
   return (
     <div className="shop_feed">
+      <button onClick={buttonCounter}>+</button>
+      {count}
       {props.productState.products.map((product) => (
         <ProductCard key={product.id} {...product} />
       ))}

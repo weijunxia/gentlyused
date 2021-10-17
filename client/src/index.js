@@ -1,16 +1,22 @@
+import { Elements } from '@stripe/react-stripe-js'
 import { BrowserRouter } from 'react-router-dom'
+import { loadStripe } from '@stripe/stripe-js'
 import { Provider } from 'react-redux'
-import store from './store'
-import React from 'react'
 import ReactDOM from 'react-dom'
+import store from './store'
 import './styles/index.css'
+import React from 'react'
 import App from './App'
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <Elements stripe={stripePromise}>
+          <App />
+        </Elements>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,
