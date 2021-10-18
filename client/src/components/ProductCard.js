@@ -11,8 +11,8 @@ import {
 import { CheckUserSession } from '../store/actions/AuthActions'
 import { LoadUserFavorites } from '../store/actions/UserActions'
 import { AddFavorite, RemoveFavorite } from '../store/actions/FavoriteActions'
-import '../styles/productcard.css'
 import { FavoriteBorder, Favorite } from '@mui/icons-material'
+import '../styles/productcard.css'
 
 const mapStateToProps = ({ productState, userState, favoriteState }) => {
   return { productState, userState, favoriteState }
@@ -62,38 +62,27 @@ function ProductCard(props) {
         to={{ pathname: `/shop/product/${props.id}` }}
         style={{ textDecoration: 'none', color: 'black' }}
       >
-        <div className="product_card">
-          <img
-            className="product_card_image"
-            src="https://picsum.photos/200/300"
-            alt={`${props.title} ${props.description}`}
-          />
+        <img
+          className="product_card_image"
+          src="https://picsum.photos/200/300"
+          alt={`${props.title} ${props.description}`}
+        />
 
-          <p className="product_card_date">
-            <span>Posted {props.createdAt}</span>
-          </p>
-          <div className="product_card_info">
-            <p className="product_card_title">{props.title}</p>
-            <p className="product_card_size">{props.size}</p>
-            <p className="product_card_description">{props.description}</p>
-            <p className="product_card_price">${props.price}</p>
-          </div>
+        <p className="product_card_date">
+          <span>Posted {props.createdAt}</span>
+        </p>
+        <div className="product_card_title_size">
+          <span className="product_card_title">{props.title}</span>
+          <span className="product_card_size">{props.size}</span>
+        </div>
+        <div className="product_card_info">
+          <span className="product_card_description">{props.description}</span>
+          <span className="product_card_price">${props.price}</span>
         </div>
       </NavLink>
-      {/* {props.productState.productsAndFavorites.filter((product) => {
-        if (
-          product.id === props.id &&
-          product.product_favorite.filter(
-            (favorite) =>
-              favorite.favorite_user_id === props.userState.individualUser.id
-          )
-        ) {
-          return removeFromUserFavorite
-        } else {
-          return addToUserFavorite
-        }
-      })}
-      {props.productState.productsAndFavorites.} */}
+      <div className="product_card_favorite">
+        <FavoriteBorder onClick={addFavorite} />
+      </div>
     </div>
   )
 }

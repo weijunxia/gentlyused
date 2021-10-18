@@ -1,7 +1,6 @@
 .product_card {
-  overflow: hidden;
-  min-height: 500px;
-  max-height: 500px;
+  min-height: 400px;
+  max-height: 400px;
   max-width: 200px;
   min-width: 200px;
 }
@@ -11,7 +10,6 @@
   align-items: center;
   height: auto;
   width: 200px;
-  overflow: hidden;
   position: relative;
   border-radius: 5px;
 }
@@ -35,6 +33,19 @@
   align-items: flex-start;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.product_card_title_size {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+.product_card_favorite {
+  position: relative;
+  left: 172px;
+  bottom: 28px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
 }
 .product_card_info > p {
   margin-bottom: -10px;

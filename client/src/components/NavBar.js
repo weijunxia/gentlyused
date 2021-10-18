@@ -19,18 +19,34 @@ function NavBar(props) {
     authenticatedOptions = (
       <div className="nav_bar_right">
         <div className="nav_bar_shop">
-          <NavLink to="/shop">Shop</NavLink>
+          <NavLink
+            to="/shop"
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            Shop
+          </NavLink>
         </div>
         <div className="nav_bar_sell">
-          <NavLink to="/sell">Sell</NavLink>
+          <NavLink
+            to="/sell"
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            Sell
+          </NavLink>
         </div>
         <div className="nav_bar_favorites">
-          <NavLink to={`/${props.userState.individualUser.username}/favorites`}>
+          <NavLink
+            to={`/${props.userState.individualUser.username}/favorites`}
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
             <Favorite />
           </NavLink>
         </div>
         <div className="nav_bar_profile">
-          <NavLink to={`/${props.userState.individualUser.username}`}>
+          <NavLink
+            to={`/${props.userState.individualUser.username}`}
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
             <AccountCircle />
           </NavLink>
         </div>
@@ -43,10 +59,20 @@ function NavBar(props) {
     unauthenticatedOptions = (
       <div className="nav_bar_right">
         <div className="nav_bar_shop">
-          <NavLink to="/shop">Shop</NavLink>
+          <NavLink
+            style={{ textDecoration: 'none', color: 'black' }}
+            to="/shop"
+          >
+            Shop
+          </NavLink>
         </div>
         <div className="nav_bar_sell">
-          <NavLink to="/sell">Sell</NavLink>
+          <NavLink
+            style={{ textDecoration: 'none', color: 'black' }}
+            to="/sell"
+          >
+            Sell
+          </NavLink>
         </div>
         <AuthenticationForm />
       </div>
@@ -56,7 +82,7 @@ function NavBar(props) {
   return (
     <div className="nav_bar">
       <div className="nav_bar_logo">
-        <NavLink to="/">
+        <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/">
           <h3>Gently Used</h3>
         </NavLink>
       </div>
