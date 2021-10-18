@@ -6,7 +6,8 @@ import {
   CreateProduct,
   UpdateProduct,
   GetFavoritesForProduct,
-  DeleteProduct
+  DeleteProduct,
+  GetAllProductImages
 } from '../../services/ProductServices'
 
 const {
@@ -19,7 +20,8 @@ const {
   CREATE_PRODUCT,
   TOGGLE_PRODUCT_DELETE_MODAL,
   GET_ALL_PRODUCTS_AND_FAVORITES,
-  CLEAR_RECENTLY_ADDED
+  CLEAR_RECENTLY_ADDED,
+  GET_ALL_PRODUCT_IMAGES
 } = require('../types')
 
 export const ToggleProductDeleteModal = () => {
@@ -31,6 +33,17 @@ export const ToggleProductDeleteModal = () => {
     }
   }
 }
+export const GetAllProductsImages = (id) => {
+  return async (dispatch) => {
+    try {
+      const productsImages = await GetAllProductImages(id)
+      dispatch({ type: GET_ALL_PRODUCT_IMAGES, payload: productsImages })
+    } catch (error) {
+      throw error
+    }
+  }
+}
+
 export const GetAProductsFavorites = (product_id) => {
   return async (dispatch) => {
     try {
