@@ -8,7 +8,8 @@ const {
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
   TOGGLE_PRODUCT_DELETE_MODAL,
-  CLEAR_RECENTLY_ADDED
+  CLEAR_RECENTLY_ADDED,
+  GET_IMAGE_BY_PRODUCT_ID
 } = require('../types')
 
 const iState = {
@@ -18,12 +19,14 @@ const iState = {
   recentlyAddedProduct: [],
   productSearch: [],
   productsLoading: '',
-  productDeleteModal: false
+  productDeleteModal: false,
+  productImages: []
 }
 
 const ProductReducer = (state = iState, action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
+      console.log(action.payload)
       return { ...state, products: action.payload }
     case GET_ALL_PRODUCTS_AND_FAVORITES:
       return { ...state, productsAndFavorites: action.payload }
@@ -32,12 +35,13 @@ const ProductReducer = (state = iState, action) => {
     case GET_PRODUCT_SEARCH:
       return { ...state, productSearch: action.payload }
     case CREATE_PRODUCT:
-      console.log('action.payload', action.payload)
       return {
         ...state,
         products: action.payload,
         recentlyAddedProduct: action.payload
       }
+    case GET_IMAGE_BY_PRODUCT_ID:
+      return { ...state, productImages: action.payload }
     case CLEAR_RECENTLY_ADDED:
       return {
         ...state,

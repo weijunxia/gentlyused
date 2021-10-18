@@ -6,8 +6,9 @@ const multer = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
 
-Router.get('/all', controller.GetImage)
-
+Router.get('/all', controller.GetAllImage)
+Router.get('/product/:id', controller.GetImageByProductId)
+Router.get('/user/:id', controller.GetImagesByUserId)
 Router.post(
   '/upload',
   middleware.stripToken,

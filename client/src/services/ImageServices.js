@@ -13,6 +13,24 @@ export const GetUploadUrl = async (data) => {
   }
 }
 
+export const GetImagesByProductId = async (id) => {
+  try {
+    const res = await Client.get(`/images/product/${id}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const GetImagesByUserId = async (id) => {
+  try {
+    const res = await Client.get(`/images/user/${id}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const DeleteImage = async (id) => {
   try {
     const res = await Client.delete(`/images/delete/${id}`)

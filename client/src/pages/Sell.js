@@ -3,7 +3,8 @@ import _ from 'lodash'
 import {
   SetAWSS3ImageUrl,
   SetUploadFile,
-  ToggleImageUpload
+  ToggleImageUpload,
+  GetImageByProduct
 } from '../store/actions/ImageActions'
 import { CheckUserSession } from '../store/actions/AuthActions'
 import { PostProduct, LoadAllProducts } from '../store/actions/ProductActions'
@@ -27,7 +28,8 @@ const mapDispatchToProps = (dispatch) => {
     getAllProducts: () => dispatch(LoadAllProducts()),
     checkUserSession: (data) => dispatch(CheckUserSession(data)),
     toggleImageUpload: () => dispatch(ToggleImageUpload()),
-    setUploads: (data) => dispatch(SetUploadFile(data))
+    setUploads: (data) => dispatch(SetUploadFile(data)),
+    getImageByProductId: (id) => dispatch(GetImageByProduct(id))
   }
 }
 
@@ -49,7 +51,11 @@ function Sell(props) {
       return res
     }
   }
-
+  const imagePreviews = async (id) => {
+    if (props.productState.recentlyAddedProduct) {
+      await props.getImageByProductId(id)
+    }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault()
     let formData = new FormData()
@@ -81,7 +87,8 @@ function Sell(props) {
   useEffect(() => {
     props.getAllProducts()
     checkUserSession()
-  }, [dispatch])
+    imagePreviews(props.productState.recentlyAddedProduct.id)
+  }, [props.imageState.awsS3ImageUrl])
 
   const sellPage = (
     <Form
@@ -180,7 +187,18 @@ function Sell(props) {
       )}
     />
   )
-
+  let previewImages = null
+  if (props.productState.productImages && props.recentlyAddedProduct) {
+    previewImages = (
+      <>
+        <img
+          className="preview_images"
+          src={props.productState.productImages.file_name}
+          alt={props.recentlyAddedProduct.description}
+        />
+      </>
+    )
+  }
   return (
     <div className="sell_page">
       <div className="sell_page_product_form">{sellPage}</div>
@@ -222,6 +240,7 @@ function Sell(props) {
         <button onSubmit={handleSubmit}>Upload</button> */}
       {/* </form> */}
       <h2>Preview</h2>
+      {props.productState.productImages ? previewImages : null}
       <div className="sell_page_preview"></div>
     </div>
   )

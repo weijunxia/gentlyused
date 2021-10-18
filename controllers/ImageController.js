@@ -15,7 +15,7 @@ const DeleteImage = async (req, res) => {
     throw error
   }
 }
-const GetImage = async (req, res) => {
+const GetAllImage = async (req, res) => {
   try {
     const response = await Image.findAll({
       where: {
@@ -45,7 +45,7 @@ const GetImageByProductId = async (req, res) => {
     const response = await Image.findAll({
       where: { image_product_id: prodId }
     })
-    return response
+    res.send(response)
   } catch (error) {
     throw error
   }
@@ -57,7 +57,7 @@ const GetImagesByUserId = async (req, res) => {
     const response = await Image.findAll({
       where: { image_user_id: userId }
     })
-    return response
+    res.send(response)
   } catch (error) {
     throw error
   }
@@ -93,7 +93,7 @@ const CreateImage = async (req, res) => {
 }
 
 module.exports = {
-  GetImage,
+  GetAllImage,
   CreateImage,
   DeleteImage,
   GetImageByProductId,
