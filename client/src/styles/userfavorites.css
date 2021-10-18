@@ -1,0 +1,11 @@
+.user_favorites_page {
+  margin: 0 auto;
+  max-width: 1088px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+}

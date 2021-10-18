@@ -7,9 +7,9 @@ function Banner() {
   return (
     <div className="banner">
       <div className="banner_info">
-        <h1>Reduce Reuse Recycle</h1>
+        <h1>Reduce Reuse Recycle!</h1>
         <button onClick={() => history.push('/shop')} variant="outlined">
-          Browse Our Newest Items!
+          Browse Our Newest Items
         </button>
       </div>
     </div>
