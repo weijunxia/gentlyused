@@ -18,7 +18,8 @@ const {
   DELETE_PRODUCT,
   CREATE_PRODUCT,
   TOGGLE_PRODUCT_DELETE_MODAL,
-  GET_ALL_PRODUCTS_AND_FAVORITES
+  GET_ALL_PRODUCTS_AND_FAVORITES,
+  CLEAR_RECENTLY_ADDED
 } = require('../types')
 
 export const ToggleProductDeleteModal = () => {
@@ -112,6 +113,16 @@ export const PostProduct = (data) => {
     try {
       const product = await CreateProduct(data)
       dispatch({ type: CREATE_PRODUCT, payload: product.data })
+    } catch (error) {
+      throw error
+    }
+  }
+}
+
+export const ClearRecentlyAdded = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: CLEAR_RECENTLY_ADDED })
     } catch (error) {
       throw error
     }

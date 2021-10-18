@@ -6,7 +6,8 @@ import {
 const {
   SET_AWS_S3_IMAGE_URL,
   GET_ALL_IMAGES,
-  DELETE_IMAGE
+  DELETE_IMAGE,
+  TOGGLE_IMAGE_UPLOADER
 } = require('../types')
 
 export const SetAWSS3ImageUrl = (data) => {
@@ -19,7 +20,15 @@ export const SetAWSS3ImageUrl = (data) => {
     }
   }
 }
-
+export const ToggleImageUpload = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: TOGGLE_IMAGE_UPLOADER })
+    } catch (error) {
+      throw error
+    }
+  }
+}
 export const GetImages = () => {
   return async (dispatch) => {
     try {

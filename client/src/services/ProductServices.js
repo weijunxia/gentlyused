@@ -46,7 +46,7 @@ export const GetProductSearch = async (query) => {
 export const CreateProduct = async (data) => {
   try {
     const res = await Client.post(`/products`, data)
-    return res.data
+    return res
   } catch (error) {
     throw error
   }

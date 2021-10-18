@@ -73,7 +73,13 @@ function ProductPage(props) {
       >
         <button>Update Listing</button>
       </NavLink>
-      <button onClick={deleteUserProduct}>Delete Listing</button>
+      <button
+        onClick={() =>
+          deleteUserProduct(props.productState.individualProduct.id)
+        }
+      >
+        Delete Listing
+      </button>
     </div>
   )
   let buyProduct = (
