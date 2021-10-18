@@ -200,45 +200,16 @@ function Sell(props) {
   return (
     <div className="sell_page">
       <div className="sell_page_product_form">{sellPage}</div>
-      {/* disabled={!props.imageState.imageUploadToggle} */}
-      {/* <form onSubmit={handleSubmit} className="sell_page_image_form"> */}
-      {/* <div> */}
-      <div className="sell_page_preview_area"></div>
-      <input
-        type="file"
-        accept="image/*"
-        className="sell_page_image_input"
-        onChange={handleUploadChange}
-      ></input>
-      <div className="sell_page_input_overlay">
-        <PhotoCameraIcon sx={{ fontSize: 100 }} />
-      </div>
-      {/* <div className="sell_page_preview_area"></div>
-      <input
-        type="file"
-        accept="image/*"
-        className="sell_page_image_input"
-        onChange={handleUploadChange}
-      ></input>
-      <div className="sell_page_input_overlay">
-        <PhotoCameraIcon sx={{ fontSize: 100 }} />
-      </div>
-      <div className="sell_page_preview_area"></div>
-      <input
-        type="file"
-        accept="image/*"
-        className="sell_page_image_input"
-        onChange={handleUploadChange}
-      ></input>
-      <div className="sell_page_input_overlay">
-        <PhotoCameraIcon sx={{ fontSize: 100 }} />
-      </div> */}
-      {/* </div>
 
-        <button onSubmit={handleSubmit}>Upload</button> */}
-      {/* </form> */}
-      <h2>Preview</h2>
-      <SellPreview />
+      <input
+        type="file"
+        accept="image/*"
+        className="sell_page_image_input"
+        onChange={handleUploadChange}
+      ></input>
+      <div>
+        <SellPreview />
+      </div>
     </div>
   )
 }

@@ -43,7 +43,6 @@ export const DeleteImage = async (id) => {
 export const GetAllImages = async () => {
   try {
     const res = await Client.get(`/images/all`)
-    console.log(res)
     return res
   } catch (error) {
     throw error

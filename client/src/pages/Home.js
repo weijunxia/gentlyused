@@ -6,6 +6,7 @@ function Home() {
     <div className="home">
       <div>
         <Banner />
+        <h1>Feed</h1>
         <ShopFeed />
       </div>
     </div>

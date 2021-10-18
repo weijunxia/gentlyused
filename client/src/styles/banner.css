@@ -1,0 +1,49 @@
+.banner {
+  height: 75vh;
+  position: relative;
+  background: url('../assets/becca-mchaffie-Fzde_6ITjkw-unsplash.jpg') no-repeat;
+  background-size: cover;
+  margin-bottom: 2vh;
+}
+
+.banner_info {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #f2f2f0;
+  justify-content: center;
+  align-items: center;
+  width: 30vw;
+  height: 30vh;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.banner_info > button {
+  height: fit-content;
+  width: fit-content;
+  background-color: #a61f12;
+  text-transform: inherit;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  height: 80px;
+  border: none;
+  border-radius: 5px;
+}
+
+.banner_info > h1 {
+  color: #f2f2f0;
+  font-size: 40px;
+}
+
+.banner_info > h5 {
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+.banner_info > button:hover {
+  background-color: #f2f2f0;
+  color: #a61f12;
+  cursor: pointer;
+}

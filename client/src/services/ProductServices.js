@@ -10,6 +10,8 @@ export const GetAllProducts = async () => {
 export const GetAllProductImages = async (id) => {
   try {
     const res = await Client.get(`/products/images/${id}`)
+    console.log('res', res)
+
     return res.data
   } catch (error) {
     throw error
@@ -27,8 +29,7 @@ export const GetAllProductsAndFavorites = async () => {
 export const GetProductById = async (id) => {
   try {
     const res = await Client.get(`/products/${id}`)
-    console.log('res', res)
-    return res
+    return res.data
   } catch (error) {
     throw error
   }
