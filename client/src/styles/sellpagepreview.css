@@ -1,0 +1,17 @@
+.sell_page_preview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.sell_page_image_preview {
+  height: 75%;
+  width: 75%;
+  margin: 2vw;
+  border-radius: 5px;
+}
+
+.sell_page_product_card {
+  position: absolute;
+  top: 3vh;
+  margin: 5vw;
+}

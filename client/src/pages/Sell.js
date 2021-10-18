@@ -12,6 +12,7 @@ import { Form, Field } from 'react-final-form'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import { connect, useDispatch } from 'react-redux'
 import '../styles/sell.css'
+import SellPreview from '../components/SellPreview'
 const mapStateToProps = ({
   userState,
   imageState,
@@ -83,11 +84,17 @@ function Sell(props) {
     await props.toggleImageUpload()
     // await props.getAllProducts()
   }
+  const renderImages = () => {
+    if (props.productState.productImages && props.recentlyAddedProduct) {
+      console.log('hello')
+    }
+  }
 
   useEffect(() => {
     props.getAllProducts()
     checkUserSession()
     imagePreviews(props.productState.recentlyAddedProduct.id)
+    renderImages()
   }, [props.imageState.awsS3ImageUrl])
 
   const sellPage = (
@@ -187,18 +194,9 @@ function Sell(props) {
       )}
     />
   )
+
   let previewImages = null
-  if (props.productState.productImages && props.recentlyAddedProduct) {
-    previewImages = (
-      <>
-        <img
-          className="preview_images"
-          src={props.productState.productImages.file_name}
-          alt={props.recentlyAddedProduct.description}
-        />
-      </>
-    )
-  }
+
   return (
     <div className="sell_page">
       <div className="sell_page_product_form">{sellPage}</div>
@@ -240,8 +238,7 @@ function Sell(props) {
         <button onSubmit={handleSubmit}>Upload</button> */}
       {/* </form> */}
       <h2>Preview</h2>
-      {props.productState.productImages ? previewImages : null}
-      <div className="sell_page_preview"></div>
+      <SellPreview />
     </div>
   )
 }

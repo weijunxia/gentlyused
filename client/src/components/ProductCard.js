@@ -58,7 +58,10 @@ function ProductCard(props) {
 
   return (
     <div className="product_card">
-      <NavLink to={{ pathname: `/shop/product/${props.id}` }}>
+      <NavLink
+        to={{ pathname: `/shop/product/${props.id}` }}
+        style={{ textDecoration: 'none', color: 'black' }}
+      >
         <div className="product_card">
           <img
             className="product_card_image"
@@ -67,13 +70,14 @@ function ProductCard(props) {
           />
 
           <p className="product_card_date">
-            <span>Posted </span>
-            {props.createdAt}
+            <span>Posted {props.createdAt}</span>
           </p>
-          <p className="product_card_title">{props.title}</p>
-          <p className="product_card_size">{props.size}</p>
-          <p className="product_card_description">{props.description}</p>
-          <p className="product_card_price">${props.price}</p>
+          <div className="product_card_info">
+            <p className="product_card_title">{props.title}</p>
+            <p className="product_card_size">{props.size}</p>
+            <p className="product_card_description">{props.description}</p>
+            <p className="product_card_price">${props.price}</p>
+          </div>
         </div>
       </NavLink>
       {/* {props.productState.productsAndFavorites.filter((product) => {
