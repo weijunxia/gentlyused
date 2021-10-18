@@ -1,4 +1,4 @@
-const { User, Product, Order, Favorite } = require('../models')
+const { User, Product, Order, Favorite, Image } = require('../models')
 const { Op } = require('sequelize')
 
 const GetAllUserProfiles = async (req, res) => {

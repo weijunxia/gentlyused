@@ -3,8 +3,10 @@ const middleware = require('../middleware')
 const Router = require('express').Router()
 
 Router.get('/', controller.GetAllProducts)
+Router.get('/all/favorites', controller.GetAllProductsAndFavorites)
 Router.get('/:id', controller.GetProductDetails)
-Router.get('/:id/favorite', controller.GetAllFavoritesOneProduct)
+Router.get('/images/:id', controller.GetAllImagesByProduct)
+Router.get('/favorite/:id', controller.GetAllFavoritesOneProduct)
 Router.get('/search/:query', controller.QueryProducts)
 Router.post(
   '/',

@@ -2,12 +2,13 @@ require('dotenv').config()
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 const StripePaymentIntent = async (req, res) => {
-  const { product, email } = req.body
+  const { product, user_email } = req.body
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: product.price * 100,
       currency: 'usd',
-      receipt_email: email,
+      payment_method_types: ['card'],
+      receipt_email: user_email,
       metadata: {
         integration_check: 'accept_a_payment'
       }
@@ -30,7 +31,7 @@ const StripeWebhook = async (req, res) => {
     )
     res.json({ received: true })
   } catch (error) {
-    console.log(`⚠️  Webhook signature verification failed.`)
+    console.log(`Webhook signature verification failed.`)
     return res.status(400)
   }
   switch (event.type) {

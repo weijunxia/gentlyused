@@ -12,7 +12,19 @@ const GetAllProducts = async (req, res) => {
     throw error
   }
 }
-
+const GetAllProductsAndFavorites = async (req, res) => {
+  try {
+    const productsAndFavorites = await Product.findAll({
+      include: { model: User, as: 'product_favorite' },
+      attributes: {
+        exclude: ['password_digest']
+      }
+    })
+    res.send(productsAndFavorites)
+  } catch (error) {
+    throw error
+  }
+}
 const QueryProducts = async (req, res) => {
   try {
     const query = req.params.query
@@ -24,6 +36,23 @@ const QueryProducts = async (req, res) => {
         ]
       }
     })
+    res.send(search)
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetAllImagesByProduct = async (req, res) => {
+  try {
+    const id = req.params.id
+    const image = await Product.findAll({
+      where: { id: id },
+      attributes: {
+        exclude: ['password_digest']
+      },
+      include: [{ model: User, as: 'product_images' }]
+    })
+    res.send(image)
   } catch (error) {
     throw error
   }
@@ -32,14 +61,12 @@ const QueryProducts = async (req, res) => {
 const GetAllFavoritesOneProduct = async (req, res) => {
   try {
     const id = req.params.id
-    const favorites = await User.findAll({
-      include: [
-        {
-          model: Product,
-          as: 'product_favorite',
-          where: { id: id }
-        }
-      ],
+    const favorites = await Product.findAll({
+      where: { id: id },
+      include: {
+        model: User,
+        as: 'product_favorite'
+      },
       attributes: {
         exclude: ['password_digest']
       }
@@ -60,7 +87,6 @@ const GetProductDetails = async (req, res) => {
 }
 const CreateProduct = async (req, res) => {
   try {
-    console.log(req.body)
     const product = await Product.create({ ...req.body })
     res.send(product)
   } catch (error) {
@@ -95,8 +121,10 @@ const DeleteProduct = async (req, res) => {
 
 module.exports = {
   GetAllProducts,
+  GetAllProductsAndFavorites,
   QueryProducts,
   GetProductDetails,
+  GetAllImagesByProduct,
   CreateProduct,
   UpdateProduct,
   DeleteProduct,

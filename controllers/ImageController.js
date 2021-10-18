@@ -1,6 +1,8 @@
 const { Image, User, Product } = require('../models')
 const uploader = require('../middleware/uploader')
+const { Op } = require('sequelize')
 const path = require('path')
+
 const DeleteImage = async (req, res) => {
   try {
     await Image.destroy({ where: { id: req.params.id } })
@@ -15,12 +17,52 @@ const DeleteImage = async (req, res) => {
 }
 const GetImage = async (req, res) => {
   try {
-    const response = await Image.findAll()
+    const response = await Image.findAll({
+      where: {
+        [Op.or]: [
+          {
+            image_user_id: {
+              [Op.not]: null
+            }
+          },
+          {
+            image_product_id: {
+              [Op.not]: null
+            }
+          }
+        ]
+      }
+    })
     res.send(response)
   } catch (error) {
     throw error
   }
 }
+
+const GetImageByProductId = async (req, res) => {
+  try {
+    let prodId = req.params.id
+    const response = await Image.findAll({
+      where: { image_product_id: prodId }
+    })
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetImagesByUserId = async (req, res) => {
+  try {
+    let userId = req.params.id
+    const response = await Image.findAll({
+      where: { image_user_id: userId }
+    })
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
 const CreateImage = async (req, res) => {
   try {
     let file = req.file
@@ -53,5 +95,7 @@ const CreateImage = async (req, res) => {
 module.exports = {
   GetImage,
   CreateImage,
-  DeleteImage
+  DeleteImage,
+  GetImageByProductId,
+  GetImagesByUserId
 }

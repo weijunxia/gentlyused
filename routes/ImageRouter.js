@@ -7,6 +7,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage })
 
 Router.get('/all', controller.GetImage)
+
 Router.post(
   '/upload',
   middleware.stripToken,
