@@ -63,3 +63,8 @@
 .modal_exit:hover {
   opacity: 1;
 }
+
+.login_nav_bar {
+  margin-left: 5vw;
+  margin-right: 1.5vw;
+}

@@ -193,16 +193,16 @@ function AuthenticationForm(props) {
 
   return (
     <div className="register_login">
-      <div className="register_nav_bar" onClick={handleRegisterToggle}>
+      <span className="register_nav_bar" onClick={handleRegisterToggle}>
         Register
-      </div>
+      </span>
       {props.authenticationState.modalToggled &&
       props.authenticationState.registration
         ? registrationModal
         : null}
-      <div className="login_nav_bar" onClick={handleLoginToggle}>
+      <span className="login_nav_bar" onClick={handleLoginToggle}>
         Login
-      </div>
+      </span>
       {props.authenticationState.modalToggled && props.authenticationState.login
         ? loginModal
         : null}

@@ -195,21 +195,18 @@ function Sell(props) {
     />
   )
 
-  let previewImages = null
-
   return (
     <div className="sell_page">
+      Post your Listing Today for Free Shipping!
       <div className="sell_page_product_form">{sellPage}</div>
-
       <input
         type="file"
         accept="image/*"
         className="sell_page_image_input"
         onChange={handleUploadChange}
       ></input>
-      <div>
-        <SellPreview />
-      </div>
+      <div></div>
+      <SellPreview />
     </div>
   )
 }
