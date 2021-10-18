@@ -7,19 +7,31 @@ const {
   SET_AWS_S3_IMAGE_URL,
   GET_ALL_IMAGES,
   DELETE_IMAGE,
-  TOGGLE_IMAGE_UPLOADER
+  TOGGLE_IMAGE_UPLOADER,
+  SET_UPLOAD_FILE
 } = require('../types')
 
 export const SetAWSS3ImageUrl = (data) => {
   return async (dispatch) => {
     try {
       const s3Url = await GetUploadUrl(data)
-      dispatch({ type: SET_AWS_S3_IMAGE_URL, payload: s3Url })
+      dispatch({ type: SET_AWS_S3_IMAGE_URL, payload: s3Url.data })
     } catch (error) {
       throw error
     }
   }
 }
+
+export const SetUploadFile = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: SET_UPLOAD_FILE, payload: data })
+    } catch (error) {
+      throw error
+    }
+  }
+}
+
 export const ToggleImageUpload = () => {
   return async (dispatch) => {
     try {
@@ -45,6 +57,8 @@ export const DeleteImageById = (id) => {
     try {
       const deleted = await DeleteImage(id)
       dispatch({ type: DELETE_IMAGE, payload: deleted })
-    } catch (error) {}
+    } catch (error) {
+      throw error
+    }
   }
 }

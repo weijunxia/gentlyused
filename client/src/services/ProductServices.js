@@ -2,7 +2,7 @@ import Client from '.'
 export const GetAllProducts = async () => {
   try {
     const res = await Client.get('/products')
-    return res.data
+    return res
   } catch (error) {
     throw error
   }
