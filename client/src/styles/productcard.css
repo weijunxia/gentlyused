@@ -27,18 +27,25 @@
 }
 
 .product_card_info {
+  overflow: hidden;
   display: flex;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  max-width: 170px;
 }
 .product_card_title_size {
   display: flex;
   justify-content: space-between;
   width: 200px;
 }
+
+.product_card_description {
+  overflow: hidden;
+}
+
 .product_card_favorite {
   position: relative;
   left: 172px;

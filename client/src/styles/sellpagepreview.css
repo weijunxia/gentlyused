@@ -1,11 +1,10 @@
 .sell_page_preview {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
 }
 
 .sell_page_image_preview {
-  height: 75%;
-  width: 75%;
+  height: 100%;
+  width: 100%;
   margin: 2vw;
   border-radius: 5px;
 }

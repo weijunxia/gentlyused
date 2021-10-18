@@ -1,8 +1,7 @@
-/* .sell_page {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
+.sell_page {
+  display: flex;
   margin-top: 5vh;
-  max-width: 100%;
+  max-width: 1088px;
 }
 
 .sell_page_product_form {
@@ -17,19 +16,19 @@
   align-items: center;
   margin-bottom: 2vh;
 }
+.sell_page_preview_area {
+  width: 200px;
+  height: 300px;
 
+  border-radius: 5px;
+}
+/* 
 .sell_page_image_form {
   display: grid;
   max-width: 60vw;
   grid-template-columns: repeat(4, auto);
 }
 
-.sell_page_preview_area {
-  width: 200px;
-  height: 300px;
-  background-color: hsl(0, 1%, 63%);
-  border-radius: 5px;
-}
 
 .sell_page_input_overlay {
   width: 50px;

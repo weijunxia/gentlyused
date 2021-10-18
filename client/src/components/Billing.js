@@ -66,7 +66,7 @@ function Billing(props) {
     history.push(`/success?amount=${amount}&id=${id}`, { from: 'checkout' })
   }
 
-  const onSubmit = async (values, { setSubmitting }) => {
+  const onBillingSubmit = async (values, { setSubmitting }) => {
     setError('')
     const isStripeLoading = !stripe || !elements
     if (isStripeLoading) {
@@ -101,7 +101,8 @@ function Billing(props) {
   }
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={onBillingSubmit}
+      onBillingSubmit={onBillingSubmit}
       initialValues={initValues}
       validate={(values) => {
         const errors = {}
@@ -124,7 +125,7 @@ function Billing(props) {
           className="billing_form"
           onSubmit={(e) => {
             e.preventDefault()
-            onSubmit()
+            onBillingSubmit()
           }}
         >
           <Field name="first_name">

@@ -43,16 +43,6 @@ function ProductCard(props) {
     userId = props.userState.individualUser.id
     productId = props.id
   }
-  let removeFromUserFavorite = (
-    <>
-      <Favorite onClick={removeFromFavorite} />
-    </>
-  )
-  let addToUserFavorite = (
-    <>
-      <FavoriteBorder onClick={addFavorite} />
-    </>
-  )
 
   useEffect(() => {}, [dispatch])
 

@@ -19,6 +19,7 @@ const ImageReducer = (state = iState, action) => {
     case SET_AWS_S3_IMAGE_URL:
       return { ...state, awsS3ImageUrl: action.payload }
     case GET_ALL_IMAGES:
+      console.log(action.payload)
       return { ...state, allImages: action.payload }
     case DELETE_IMAGE:
       return { ...state, allImages: action.payload }

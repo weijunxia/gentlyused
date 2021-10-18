@@ -28,7 +28,7 @@ export const GetProductById = async (id) => {
   try {
     const res = await Client.get(`/products/${id}`)
     console.log('res', res)
-    return res.data
+    return res
   } catch (error) {
     throw error
   }

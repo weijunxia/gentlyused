@@ -10,42 +10,54 @@ import UpdateListing from './pages/UpdateListing'
 import Profile from './pages/Profile'
 import UserFavorites from './components/UserFavorites'
 import { connect, useDispatch } from 'react-redux'
+import { GET_ALL_IMAGES } from './store/types'
+import { GetImages } from './store/actions/ImageActions'
+import { GetAllProductsImages } from './store/actions/ProductActions'
 // import { CheckUserSession } from './store/actions/AuthActions'
 
-const mapStateToProps = ({ authenticationState }) => {
-  return { authenticationState }
-}
+// const mapStateToProps = ({
+//   authenticationState,
+//   imageState,
+//   productState,
+//   userState
+// }) => {
+//   return { authenticationState, imageState, productState, userState }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // checkUserSession: (token) => dispatch(CheckUserSession(token))
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     getAllImages: () => dispatch(GetImages()),
+//     getAllProductsImages: (id) => dispatch(GetAllProductsImages(id))
+//   }
+// }
 
 function App(props) {
+  // const dispatch = useDispatch()
+
   // let token = localStorage.getItem('token')
   // const checkUsersSession = async (param) => {
   //   await props.checkUserSession(param)
   // }
+  // const getDbImages = async (id) => {
+  //   await props.getAllProductsImages(id)
+  // }
   // useEffect(() => {
-  //   checkUsersSession(token)
-  // }, [])
+
+  // }, [dispatch])
   return (
     <div className="App">
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <NavBar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/shop" component={ShopFeed} />
-          <Route exact path="/sell" component={Sell} />
-          <Route exact path="/product/update/:id" component={UpdateListing} />
-          <Route exact path="/shop/product/:id" component={ProductPage} />
-          <Route exact path="/:username/favorites" component={UserFavorites} />
-          <Route exact path="/:username" component={Profile} />
-        </Switch>
-      </div>
+      <NavBar />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/shop" component={ShopFeed} />
+        <Route exact path="/sell" component={Sell} />
+        <Route exact path="/product/update/:id" component={UpdateListing} />
+        <Route exact path="/shop/product/:id" component={ProductPage} />
+        <Route exact path="/:username/favorites" component={UserFavorites} />
+        <Route exact path="/:username" component={Profile} />
+      </Switch>
     </div>
   )
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
+// export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -49,6 +49,7 @@ export const GetImages = () => {
   return async (dispatch) => {
     try {
       const images = await GetAllImages()
+      console.log('images', images)
       dispatch({ type: GET_ALL_IMAGES, payload: images })
     } catch (error) {
       throw error
