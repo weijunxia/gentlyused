@@ -4,7 +4,7 @@
 
 ### Date: 10/11/2021
 
-### LINKS: [Live Demo](https://peaceful-coast-61697.herokuapp.com/)[GitHub](https://github.com/weijunxia/gentlyused) | [Pitch Deck](https://docs.google.com/presentation/d/1E6WKr777mmTI7fFAKNvG-PAAhl4XrJkNEqUaE-0FxXc/edit?usp=sharing) | [Trello](https://trello.com/invite/b/2InlilO8/7a9c24c4377a3124cd959062db9761ed/gentlyused)
+### LINKS: [Live Demo](https://peaceful-coast-61697.herokuapp.com/) | [GitHub](https://github.com/weijunxia/gentlyused) | [Pitch Deck](https://docs.google.com/presentation/d/1E6WKr777mmTI7fFAKNvG-PAAhl4XrJkNEqUaE-0FxXc/edit?usp=sharing) | [Trello](https://trello.com/invite/b/2InlilO8/7a9c24c4377a3124cd959062db9761ed/gentlyused)
 _______
 
 ## 👖 🛒 About 
